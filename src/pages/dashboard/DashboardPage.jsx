@@ -1,26 +1,27 @@
 import React from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../components/Auth/useAuth';
 import { useNavigate } from 'react-router-dom';
-import '../styles/DashboardPage.css';
+import { dashboardManager } from './dashboardManager';
+import './DashboardPage.css';
 
 export const DashboardPage = () => {
   const { user, handleLogout } = useAuth();
   const navigate = useNavigate();
+  const dashData = dashboardManager.getDashboardData();
 
   const handleLogoutClick = () => {
-    handleLogout();
-    navigate('/login');
+    dashboardManager.handleLogout(handleLogout, navigate);
   };
 
   const handleNavigateToRoutine = () => {
-    navigate('/routine');
+    dashboardManager.navigateToRoutines(navigate);
   };
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="header-content">
-          <h1>TEMPO-CLARO</h1>
+          <h1>{dashData.title}</h1>
           <div className="user-info">
             {user?.picture && (
               <img src={user.picture} alt={user.name} className="user-avatar" />
@@ -39,12 +40,12 @@ export const DashboardPage = () => {
       <main className="dashboard-main">
         <div className="welcome-section">
           <div className="welcome-content">
-            <h2>Bem-vindo ao Tempo-Claro</h2>
-            <p>Gerencie suas rotinas e sincronize com o Google Calendar.</p>
+            <h2>{dashData.welcomeTitle}</h2>
+            <p>{dashData.welcomeDescription}</p>
           </div>
           <div className="nav-buttons">
             <button className="btn-routine" onClick={handleNavigateToRoutine} style={{padding: '15px 30px', fontSize: '1.2rem', backgroundColor: '#667eea', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer'}}>
-              📅 Gerenciar Minhas Rotinas
+              {dashData.routinesButtonText}
             </button>
           </div>
         </div>
@@ -52,13 +53,13 @@ export const DashboardPage = () => {
         {/* Placeholder para estatísticas futuras baseadas em Rotinas */}
         <div className="stats-grid">
            <div className="empty-state">
-            <p>Vá para a página de Rotinas para começar a organizar seu tempo.</p>
+            <p>{dashData.placeholderMessage}</p>
            </div>
         </div>
       </main>
 
       <footer className="dashboard-footer">
-        <p>&copy; 2025 TEMPO-CLARO. Todos os direitos reservados.</p>
+        <p>&copy; {dashData.copyrightYear} TEMPO-CLARO. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

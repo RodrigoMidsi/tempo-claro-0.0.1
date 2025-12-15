@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { routineManager } from '../manager/routineManager';
-import { googleCalendarManager } from '../manager/googleCalendarManager'; // Importado
-import RoutineForm from '../components/Routine/RoutineForm';
-import '../styles/RoutinePage.css';
+import { useAuth } from '../../components/Auth/useAuth';
+import { routinePageManager } from './routinePageManager';
+import { uiManager } from './uiManager';
+import { RoutineForm } from '../../components';
+import './RoutinePage.css';
 
 export const RoutinePage = () => {
-  // Pegamos o accessToken aqui
   const { user, accessToken, handleLogout } = useAuth();
   const navigate = useNavigate();
   
@@ -17,81 +16,68 @@ export const RoutinePage = () => {
   const [editingRoutine, setEditingRoutine] = useState(null);
   const [syncStatus, setSyncStatus] = useState(null);
 
+  // Carrega rotinas ao montar
   useEffect(() => {
-    loadRoutines();
+    const loaded = routinePageManager.loadAndSortRoutines();
+    setRoutines(loaded);
   }, []);
 
-  const loadRoutines = () => {
-    const loaded = routineManager.loadRoutinesFromStorage();
-    const sorted = routineManager.sortRoutinesByDate(loaded, 'asc');
-    setRoutines(sorted);
-  };
-
+  // Handlers usando routinePageManager
   const handleRoutineCreated = (routine) => {
-    loadRoutines();
-    setShowForm(false);
-    setEditingRoutine(null);
+    const state = routinePageManager.handleRoutineCreated();
+    setRoutines(state.routines);
+    setShowForm(state.showForm);
+    setEditingRoutine(state.editingRoutine);
   };
 
   const handleEditRoutine = (routine) => {
-    setEditingRoutine(routine);
-    setShowForm(true);
+    const state = routinePageManager.handleEditRoutine(routine);
+    setEditingRoutine(state.editingRoutine);
+    setShowForm(state.showForm);
   };
 
   const handleDeleteRoutine = (routineId) => {
-    if (window.confirm('Tem certeza que deseja deletar esta rotina?')) {
-      routineManager.deleteRoutineFromStorage(routineId);
-      loadRoutines();
+    const result = routinePageManager.handleDeleteRoutine(routineId);
+    if (result) {
+      setRoutines(result.routines);
     }
   };
 
-  // Função de exportação REAL
   const handleExportToGoogle = async (routine) => {
-    if (!accessToken) {
-      alert("Você precisa fazer login novamente para obter permissão do calendário.");
-      return;
-    }
-
-    try {
-      setSyncStatus({ status: 'loading', message: 'Conectando ao Google Calendar...' });
-
-      // Chama o manager passando a rotina e o token
-      const result = await googleCalendarManager.syncRoutineToCalendar(routine, accessToken);
-
-      if (result.success) {
-        setSyncStatus({
-          status: 'success',
-          message: result.message,
-        });
-        
-        // Abre o calendário após 1.5s
-        setTimeout(() => {
-          googleCalendarManager.openGoogleCalendar(result.calendarId);
-        }, 1500);
-
-      } else {
-        throw new Error(result.error || 'Erro na sincronização');
-      }
-
-      // Limpa msg após 5s
+    setSyncStatus({ status: 'loading', message: 'Conectando ao Google Calendar...' });
+    
+    const result = await routinePageManager.handleExportToGoogle(routine, accessToken);
+    
+    if (result.success) {
+      setSyncStatus({
+        status: 'success',
+        message: result.message,
+      });
       setTimeout(() => setSyncStatus(null), 5000);
-
-    } catch (error) {
-      console.error(error);
+    } else {
       setSyncStatus({
         status: 'error',
-        message: `❌ Erro: ${error.message}`,
+        message: result.message,
       });
     }
   };
 
-  const filteredRoutines = routineManager.filterRoutinesByStatus(routines, filterStatus);
-  const totalDuration = (routine) => routineManager.calculateTotalDuration(routine.tasks);
-
   const handleLogoutClick = () => {
-    handleLogout();
-    navigate('/login');
+    uiManager.processLogout(handleLogout, navigate, '/login');
   };
+
+  const handleBackFromForm = () => {
+    const state = routinePageManager.handleBackFromForm();
+    setShowForm(state.showForm);
+    setEditingRoutine(state.editingRoutine);
+  };
+
+  const handleFilterChange = (newFilter) => {
+    const state = routinePageManager.handleFilterChange(newFilter);
+    setFilterStatus(state.filterStatus);
+  };
+
+  const filteredRoutines = routinePageManager.filterRoutines(routines, filterStatus);
 
   return (
     <div className="routine-page-container">
@@ -101,7 +87,7 @@ export const RoutinePage = () => {
           <div className="header-actions">
             <button 
               className="btn-dashboard" 
-              onClick={() => navigate('/dashboard')}
+              onClick={() => uiManager.navigateTo(navigate, '/dashboard')}
               title="Ver Dashboard"
             >
               📊 Dashboard
@@ -127,10 +113,7 @@ export const RoutinePage = () => {
           <div className="form-section-wrapper">
             <button
               className="btn-back"
-              onClick={() => {
-                setShowForm(false);
-                setEditingRoutine(null);
-              }}
+              onClick={handleBackFromForm}
             >
               ← Voltar
             </button>
@@ -158,13 +141,13 @@ export const RoutinePage = () => {
               <div className="filters">
                 <button
                   className={`filter-btn ${filterStatus === 'active' ? 'active' : ''}`}
-                  onClick={() => setFilterStatus('active')}
+                  onClick={() => handleFilterChange('active')}
                 >
                   Ativas
                 </button>
                 <button
                   className={`filter-btn ${filterStatus === 'future' ? 'active' : ''}`}
-                  onClick={() => setFilterStatus('future')}
+                  onClick={() => handleFilterChange('future')}
                 >
                   Futuras
                 </button>
@@ -198,7 +181,7 @@ export const RoutinePage = () => {
 
                     <div className="routine-info">
                       <span className="info-item">🎯 {routine.tasks.length} tarefas</span>
-                      <span className="info-item">⏱️ {totalDuration(routine)}/dia</span>
+                      <span className="info-item">⏱️ {routinePageManager.calculateDuration(routine)}/dia</span>
                     </div>
 
                     <div className="routine-actions">

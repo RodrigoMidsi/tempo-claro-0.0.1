@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { routineManager } from '../../manager/routineManager';
+import { routineManager } from './routineManager';
 import './RoutineForm.css';
 
 const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
