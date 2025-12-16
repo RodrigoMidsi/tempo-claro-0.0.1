@@ -10,14 +10,13 @@ import './App.css';
 function App() {
   return (
 
-    // @audit-info - Router: async rederizador de rotas 
-    // AuthContext: Armazena as variáveis de estádo de autenticação
+    // @audit-ok - 5.9 Navegação funcional e modular: Router rederizador de rotas
     <Router>
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<ProtectedRoute> <DashboardPage /> </ProtectedRoute>}/>
-          <Route path="/routine" element={<ProtectedRoute> <RoutinePage /> </ProtectedRoute>}/>
+          <Route path="/dashboard" element={<ProtectedRoute> <DashboardPage /> </ProtectedRoute>} />
+          <Route path="/routine" element={<ProtectedRoute> <RoutinePage /> </ProtectedRoute>} />
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>

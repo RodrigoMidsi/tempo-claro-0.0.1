@@ -1,6 +1,4 @@
-/* =========================================
-   Reset e Variáveis Globais
-   ========================================= */
+/* Reset e Variáveis Globais */
 :root {
   /* Cores Padrão */
   --primary: #667eea;
@@ -42,9 +40,7 @@ body {
   min-width: 320px;
 }
 
-/* =========================================
-   Elementos Globais (Links e Botões)
-   ========================================= */
+/* Elementos Globais (Links e Botões) */
 a {
   font-weight: 500;
   color: var(--primary);
@@ -75,6 +71,7 @@ button:hover {
   background-color: var(--secondary);
 }
 
+/* @audit-ok - 5.1 Acessibilidade (caps lock para selecionar buttons global) */
 button:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;

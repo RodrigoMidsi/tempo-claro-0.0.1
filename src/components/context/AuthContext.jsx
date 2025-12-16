@@ -2,12 +2,16 @@ import React, { createContext, useState, useEffect, useCallback } from 'react';
 
 export const AuthContext = createContext(null);
 
+//AuthProvider: É como uma "nuvem" que envolve todo o seu app. 
+// Qualquer página pode "olhar para cima" e perguntar: "Quem está logado?".
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const [tokenClient, setTokenClient] = useState(null);
 
+  // useCallback memoriza uma função para que ela não seja recriada a cada render.
+  // A função nunca será recriada
   const handleLogout = useCallback(() => {
     setUser(null);
     setAccessToken(null);
@@ -54,6 +58,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //useEffect: Assim que o app abre, ele corre no localStorage. 
+  // Se achar um token salvo que não expirou, ele loga o usuário automaticamente.
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     const savedToken = localStorage.getItem('accessToken');
@@ -67,7 +73,7 @@ export const AuthProvider = ({ children }) => {
         handleLogout();
       }
     }
-
+    //initTokenClient: É a função do Google que prepara o botão de login.
     const initClient = () => {
       if (window.google?.accounts?.oauth2) {
         const client = window.google.accounts.oauth2.initTokenClient({

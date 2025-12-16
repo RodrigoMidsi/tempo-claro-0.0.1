@@ -1,12 +1,9 @@
-/* =========================================
-   Loading Global (Tela de carregamento inicial)
-   ========================================= */
+/* Loading Global */
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* Usa as mesmas cores do login para consistência */
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
@@ -19,6 +16,7 @@
   animation: spin 0.8s linear infinite;
 }
 
+/* Animação do carregando */
 @keyframes spin {
   to {
     transform: rotate(360deg);
