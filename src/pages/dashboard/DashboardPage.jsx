@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../components/context/AuthContext'; // Ajuste o caminho se necessário
+import { AuthContext } from '../../components/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { routineManager } from '../../components/Forms/routineManager'; // Importamos o gerenciador de rotinas existente
+import { useTheme } from '../../components/context/ThemeContext'; // Importando o tema
+import { routineManager } from '../../components/Forms/routineManager';
 import './DashboardPage.css';
 
 export const DashboardPage = () => {
   const { user, handleLogout } = useContext(AuthContext);
+  const { theme, toggleTheme } = useTheme(); // Hook do tema
   const navigate = useNavigate();
 
   // Estado para armazenar as estatísticas
@@ -16,7 +18,6 @@ export const DashboardPage = () => {
     totalDuration: '0min'
   });
 
-  // Carrega as estatísticas assim que a página abre
   useEffect(() => {
     calculateStats();
   }, []);
@@ -34,17 +35,14 @@ export const DashboardPage = () => {
           activeRoutines++;
           totalTasks += routine.tasks.length;
 
-          // Calcula o tempo total dessa rotina
           routine.tasks.forEach(task => {
             const [startH, startM] = task.startTime.split(':').map(Number);
             const [endH, endM] = task.endTime.split(':').map(Number);
-            // Diferença em minutos
             totalDurationMinutes += (endH * 60 + endM) - (startH * 60 + startM);
           });
         }
       });
 
-      // Formatação bonita de horas/minutos
       const hours = Math.floor(totalDurationMinutes / 60);
       const minutes = totalDurationMinutes % 60;
       const formattedDuration = hours === 0 ? `${minutes}min` : `${hours}h ${minutes}min`;
@@ -61,7 +59,6 @@ export const DashboardPage = () => {
     }
   };
 
-  // Funções de Navegação Diretas
   const handleLogoutClick = () => {
     handleLogout();
     navigate('/login');
@@ -69,20 +66,48 @@ export const DashboardPage = () => {
 
   return (
     <div className="dashboard-container">
+      {/* HEADER PADRONIZADO (IGUAL AO ROUTINE PAGE) */}
       <header className="dashboard-header">
         <div className="header-content">
           <h1>TEMPO-CLARO</h1>
-          <div className="user-info">
-            {user?.picture && (
-              <img src={user.picture} alt={user.name} className="user-avatar" />
-            )}
-            <div className="user-details">
-              <p className="user-name">{user?.name}</p>
-              <p className="user-email">{user?.email}</p>
-            </div>
-            <button onClick={handleLogoutClick} className="logout-btn">
-              Sair
+          
+          <div className="header-actions">
+             {/* Botão de Tema */}
+            <button 
+              className="btn-theme" 
+              onClick={toggleTheme}
+              title={`Mudar para modo ${theme === 'light' ? 'escuro' : 'claro'}`}
+              style={{
+                background: 'transparent',
+                border: '1px solid var(--border-color)',
+                fontSize: '1.2rem',
+                padding: '8px 12px',
+                cursor: 'pointer',
+                borderRadius: '6px'
+              }}
+            >
+              {theme === 'light' ? '🌙' : '☀️'}
             </button>
+
+            {/* Navegação para Rotinas */}
+            <button 
+              className="btn-nav" 
+              onClick={() => navigate('/routine')}
+            >
+              📅 Rotinas
+            </button>
+            
+            <div className="user-info">
+              {user?.picture && (
+                <img src={user.picture} alt={user.name} className="user-avatar" />
+              )}
+              <div className="user-details">
+                <p className="user-name">{user?.name}</p>
+                <button onClick={handleLogoutClick} className="logout-btn">
+                  Sair
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </header>
@@ -93,19 +118,18 @@ export const DashboardPage = () => {
             <h2>Bem-vindo ao Tempo-Claro</h2>
             <p>Gerencie suas rotinas e sincronize com o Google Calendar.</p>
           </div>
+          {/* Botão extra de ação rápida */}
           <div className="nav-buttons">
             <button 
-              className="btn-routine" 
+              className="btn-action-primary" 
               onClick={() => navigate('/routine')}
             >
-              📅 Gerenciar Minhas Rotinas
+              Começar Agora
             </button>
           </div>
         </div>
         
-        {/* Grid de Estatísticas (Agora preenchido dinamicamente) */}
         <div className="stats-grid">
-           {/* Card 1: Total de Rotinas */}
            <div className="stat-card stat-total">
              <div className="stat-header">
                <h3>Total de Rotinas</h3>
@@ -115,7 +139,6 @@ export const DashboardPage = () => {
              <p className="stat-description">Rotinas cadastradas</p>
            </div>
 
-           {/* Card 2: Rotinas Ativas */}
            <div className="stat-card stat-completed">
              <div className="stat-header">
                <h3>Em Atividade</h3>
@@ -125,7 +148,6 @@ export const DashboardPage = () => {
              <p className="stat-description">Rotinas em execução hoje</p>
            </div>
 
-           {/* Card 3: Total de Tarefas */}
            <div className="stat-card stat-inprogress">
              <div className="stat-header">
                <h3>Tarefas Diárias</h3>
@@ -135,7 +157,6 @@ export const DashboardPage = () => {
              <p className="stat-description">Ações programadas</p>
            </div>
 
-           {/* Card 4: Tempo Total */}
            <div className="stat-card stat-pending">
              <div className="stat-header">
                <h3>Tempo Alocado</h3>
