@@ -15,7 +15,7 @@ um projeto de organização de rotinas via pagina web
 TEMPO-CLARO é uma aplicação web que auxilia na forma como você organiza suas rotinas diárias. Em vez de gerenciar tarefas soltas, você cria rotinas estruturadas com período definido (data início/fim), adiciona tarefas com horários específicos e sincroniza tudo automaticamente com seu Google Calendar.
 
 
-## 📝 Como Funciona: Passo a Passo
+## Como Funciona: Passo a Passo
 
 ### **Fase 1: Criação da Rotina**
 
@@ -46,13 +46,6 @@ Antes de salvar, o usuário vê:
 - **Alertas de Conflitos**: Se houver sobreposição de horários
 - **Duração Total**: Quanto tempo da rotina será preenchido
 
-**Timeline de Exemplo:**
-```
-SEGUNDA-FEIRA
-07:00 ├─ 07:45 ▓▓▓ Exercício
-07:45 ├─ 08:15 ▓▓▓ Café
-08:15 ├─ 09:00 ▓▓▓ Preparar
-```
 
 ### **Fase 4: Salvar Rotina**
 
@@ -86,7 +79,6 @@ Não precisa ser salva localmente, ela apenas é exportada para o Google Calenda
 - **API**: Google Calendar API
 - **Armazenamento Local**: localStorage
 - **Estilos**: CSS3 com design responsivo
-- 
 
 ## Estrutura do Projeto
 
