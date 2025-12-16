@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../components/Auth/useAuth';
+import { AuthContext } from '../../components/context/AuthContext';
 import { GoogleLoginButton } from '../../components/Auth/GoogleLoginButton';
 import { LoadingSpinner } from '../../components/Common/LoadingSpinner';
 import './LoginPage.css';
 
 export const LoginPage = () => {
-  const { user, carregando } = useAuth();
+  const { user, carregando } = useContext(AuthContext);
   const navigate = useNavigate();
 
 

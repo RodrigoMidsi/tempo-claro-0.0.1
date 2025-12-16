@@ -1,11 +1,11 @@
 import React from 'react';
-import { useAuth } from '../../components/Auth/useAuth';
+import { AuthContext } from '../../components/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { dashboardManager } from './dashboardManager';
 import './DashboardPage.css';
 
 export const DashboardPage = () => {
-  const { user, handleLogout } = useAuth();
+  const { user, handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
   const dashData = dashboardManager.getDashboardData();
 

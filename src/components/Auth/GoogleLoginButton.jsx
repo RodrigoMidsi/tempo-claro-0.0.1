@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAuth } from './useAuth';
+import { AuthContext } from '../context/AuthContext';
 
 export const GoogleLoginButton = () => {
-  const { loginWithGoogle } = useAuth();
+  const { loginWithGoogle } = useContext(AuthContext);
 
   return (
     <div className="google-login-button-wrapper">

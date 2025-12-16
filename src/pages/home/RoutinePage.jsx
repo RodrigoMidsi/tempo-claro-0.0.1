@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../components/Auth/useAuth';
+import { AuthContext } from '../../components/context/AuthContext';
 import { routinePageManager } from './routinePageManager';
 import { uiManager } from './uiManager';
 import { RoutineForm } from '../../components';
 import './RoutinePage.css';
 
 export const RoutinePage = () => {
-  const { user, accessToken, handleLogout } = useAuth();
+  const { user, accessToken, handleLogout } = useContext(AuthContext);
   const navigate = useNavigate();
   
   const [routines, setRoutines] = useState([]);
