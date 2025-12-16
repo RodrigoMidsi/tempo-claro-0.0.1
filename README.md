@@ -83,24 +83,43 @@ Não precisa ser salva localmente, ela apenas é exportada para o Google Calenda
 ## Estrutura do Projeto
 
 src/
+
 ├── components/
+
 │   ├── Auth/
+
 │   │   └── GoogleLoginButton.jsx
+
 │   ├── Kanban/ (será substituído por Rotinas)
+
 │   └── ...
+
 ├── context/
+
 │   └── AuthContext.jsx
+
 ├── manager/
+
 │   ├── loginManager.js
+
 │   ├── dashboardManager.js
+
 │   ├── routineManager.js (novo)
+
 │   └── ...
+
 ├── pages/
+
 │   ├── LoginPage.jsx
+
 │   ├── DashboardPage.jsx
+
 │   └── RoutinePage.jsx (novo)
+
 ├── styles/
+
 │   └── ...
+
 └── ...
 
  ## Arquitetura do Sistema
