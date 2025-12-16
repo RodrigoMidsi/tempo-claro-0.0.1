@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { LoadingSpinner } from '../Common/LoadingSpinner';
 
 // @audit-info - Verificador de estado de login
@@ -8,7 +8,6 @@ import { LoadingSpinner } from '../Common/LoadingSpinner';
 
 export const ProtectedRoute = ({ children }) => {
   const { user, carregando } = useContext(AuthContext);
-  //  const { user, carregando } = useAuth();
 
   if (carregando) {
     return <LoadingSpinner />;

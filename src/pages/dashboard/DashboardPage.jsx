@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../components/context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../components/context/ThemeContext'; // Importando o tema
-import { routineManager } from '../../components/Forms/routineManager';
+import { useTheme } from '../../context/ThemeContext'; // Importando o tema
+import { routineManager } from '../../service/routineManager';
 import './DashboardPage.css';
 
 export const DashboardPage = () => {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../components/context/AuthContext';
-import { GoogleLoginButton } from '../../components/Auth/GoogleLoginButton';
+import { AuthContext } from '../../context/AuthContext';
+import { GoogleLoginButton } from '../../components/auth/GoogleLoginButton';
 import { LoadingSpinner } from '../../components/Common/LoadingSpinner';
 import './LoginPage.css';
 

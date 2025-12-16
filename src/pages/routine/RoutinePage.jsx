@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../components/context/AuthContext';
-import { useTheme } from '../../components/context/ThemeContext'; // <--- IMPORTADO AQUI
-import { routineManager } from '../../components/Forms/routineManager'; 
-import { googleCalendarManager } from './googleCalendarManager';
+import { AuthContext } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext'; // <--- IMPORTADO AQUI
+import { routineManager } from '../../service/routineManager'; 
+import { googleCalendarManager } from '../../service/googleCalendarManager';
 import { RoutineForm } from '../../components'; 
 import './RoutinePage.css';
 

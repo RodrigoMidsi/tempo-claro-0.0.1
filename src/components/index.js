@@ -1,4 +1,4 @@
-export { GoogleLoginButton } from './Auth/GoogleLoginButton';
-export { ProtectedRoute } from './Auth/ProtectedRoute';
+export { GoogleLoginButton } from './auth/GoogleLoginButton';
+export { ProtectedRoute } from './auth/ProtectedRoute';
 export { LoadingSpinner } from './Common/LoadingSpinner';
-export { default as RoutineForm } from './Forms/RoutineForm';
+export { default as RoutineForm } from './forms/RoutineForm';
