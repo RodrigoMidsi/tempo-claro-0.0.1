@@ -115,6 +115,7 @@
   .descricao-login {
     font-size: 13px;
   }
+}
 
   /* Botão do Google */
   .google-login-button-wrapper {
@@ -156,4 +157,3 @@
     height: 24px;
     margin-right: 12px;
   }
-}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../components/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { dashboardManager } from './dashboardManager';
