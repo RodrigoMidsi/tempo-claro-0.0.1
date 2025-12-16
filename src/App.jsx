@@ -16,22 +16,8 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <DashboardPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/routine"
-            element={
-              <ProtectedRoute>
-                <RoutinePage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/dashboard" element={<ProtectedRoute> <DashboardPage /> </ProtectedRoute>}/>
+          <Route path="/routine" element={<ProtectedRoute> <RoutinePage /> </ProtectedRoute>}/>
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>
