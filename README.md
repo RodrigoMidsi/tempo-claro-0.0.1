@@ -13,19 +13,19 @@ um projeto de organização de rotinas via pagina web
 ## Visão Geral
 TEMPO-CLARO é uma aplicação web que auxilia na forma como você organiza suas rotinas diárias. Em vez de gerenciar tarefas soltas, você cria rotinas estruturadas com período definido (data início/fim), adiciona tarefas com horários específicos e sincroniza tudo automaticamente com seu Google Calendar.
 
-## Propósito do projeto
-Desenvolvi este projeto pela minha dificuldade de organização, pensando em uma maneira facil de organizar tarefas e com um "toque" próprio eu desenvolvi o Tempo-Claro.
-
 ## Público-alvo
 Focado em um Publico geral que utiliza as ferramentas do google para se orientar, e quem necessita de uma ferramenta para gerar de forma mais automatizada suas tárefas no google agenda.
 
+## Propósito do projeto
+Desenvolvi este projeto pela minha dificuldade de organização, pensando em uma maneira facil de organizar tarefas e com um "toque" próprio eu desenvolvi o Tempo-Claro.
+
 ## Como Funciona: Passo a Passo
 
-### **Fase 1: Criação da Rotina**
+**Fase 1: Criação da Rotina**
 
 1. Usuário clica em "Nova Rotina"
    
-3. Preenche informações básicas:
+2. Preenche informações básicas:
    - **Nome** (ex: "Rotina Matinal", "Semana de Trabalho")
    - **Descrição** (opcional)
    - **Data de Início** (ex: 01/01/2025)
@@ -33,35 +33,34 @@ Focado em um Publico geral que utiliza as ferramentas do google para se orientar
    - **Tipo de Recorrência**: Diária, Semanal, Mensal ou Uma única vez
    - **Cor** (para identificação visual)
 
-### **Fase 2: Adicionar Tarefas**
+**Fase 2: Adicionar Tarefas**
 
-Para cada tarefa, o usuário define:
+**Para cada tarefa, o usuário define:**
 - **Título** (ex: "Exercício", "Tomar café", "Estudar")
 - **Descrição** (detalhes opcionais)
 - **Hora de Início** (ex: 07:00)
 - **Hora de Fim** (ex: 07:30)
 - **Dias da Semana** (se recorrente): marcar quais dias a tarefa se repete
 
-### **Fase 3: Revisão Visual**
+**Fase 3: Revisão Visual**
 
-Antes de salvar, o usuário vê:
+**Antes de salvar, o usuário vê:**
 - **Timeline Visual**: Tarefas em ordem de horário
 - **Preview da Semana**: Distribuição das tarefas
 - **Alertas de Conflitos**: Se houver sobreposição de horários
 - **Duração Total**: Quanto tempo da rotina será preenchido
 
 
-### **Fase 4: Salvar Rotina**
+**Fase 4: Salvar Rotina**
 
 Rotina armazenada localmente com estrutura:
-```javascript
-Não precisa ser salva localmente, ela apenas é exportada para o Google Calendar.
-```
 
-### **Fase 5: Exportar para Google Calendar**
+É salvo localmente, e é exportada para o Google agenda.
+
+
+**Fase 5: Exportar para Google agenda**
 
 **Fluxo de Sincronização:**
-
 
 2. **Autenticação** (primeira vez)
    - Solicitar permissão do Google Calendar (Ele já tem essa permissão do login)
