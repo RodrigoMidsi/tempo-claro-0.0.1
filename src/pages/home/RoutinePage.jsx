@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../components/context/AuthContext';
-// Importamos a lógica de negócios direta (ajuste o caminho se necessário)
+import { useTheme } from '../../components/context/ThemeContext'; // <--- IMPORTADO AQUI
 import { routineManager } from '../../components/Forms/routineManager'; 
 import { googleCalendarManager } from './googleCalendarManager';
-import { RoutineForm } from '../../components'; // index.js exporta isso
+import { RoutineForm } from '../../components'; 
 import './RoutinePage.css';
 
 export const RoutinePage = () => {
   const { user, accessToken, handleLogout } = useContext(AuthContext);
+  // Hook do tema
+  const { theme, toggleTheme } = useTheme(); // <--- USADO AQUI
   const navigate = useNavigate();
   
-  // Estados Locais
   const [routines, setRoutines] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [filterStatus, setFilterStatus] = useState('active'); // active, future
+  const [filterStatus, setFilterStatus] = useState('active'); 
   const [editingRoutine, setEditingRoutine] = useState(null);
   const [syncStatus, setSyncStatus] = useState(null);
 
-  // Carregar rotinas ao iniciar
   useEffect(() => {
     loadRoutines();
   }, []);
@@ -29,16 +29,13 @@ export const RoutinePage = () => {
     setRoutines(sorted);
   };
 
-  // --- Handlers de Ação ---
-
   const handleRoutineSaved = (routine) => {
-    loadRoutines(); // Recarrega a lista
+    loadRoutines(); 
     setShowForm(false);
     setEditingRoutine(null);
   };
 
   const handleDeleteRoutine = (routineId) => {
-    // Uso direto do confirm nativo (sem uiManager)
     if (window.confirm('Tem certeza que deseja deletar esta rotina?')) {
       routineManager.deleteRoutineFromStorage(routineId);
       loadRoutines();
@@ -62,7 +59,6 @@ export const RoutinePage = () => {
     
     if (result.success) {
       setSyncStatus({ status: 'success', message: result.message });
-      // Abre o calendário após 1.5s
       setTimeout(() => {
         googleCalendarManager.openGoogleCalendar(result.calendarId);
         setSyncStatus(null);
@@ -72,17 +68,33 @@ export const RoutinePage = () => {
     }
   };
 
-  // --- Filtros e Renderização ---
-
   const filteredRoutines = routineManager.filterRoutinesByStatus(routines, filterStatus);
 
   return (
     <div className="routine-page-container">
-      {/* Header Fixo */}
       <header className="routine-header">
         <div className="header-content">
           <h1>TEMPO-CLARO</h1>
           <div className="header-actions">
+            
+            {/* --- NOVO BOTÃO DE TEMA --- */}
+            <button 
+              className="btn-theme" 
+              onClick={toggleTheme}
+              title={`Mudar para modo ${theme === 'light' ? 'escuro' : 'claro'}`}
+              style={{
+                background: 'transparent',
+                border: '1px solid var(--border-color)',
+                fontSize: '1.2rem',
+                padding: '8px 12px',
+                cursor: 'pointer',
+                borderRadius: '6px'
+              }}
+            >
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
+            {/* ------------------------- */}
+
             <button 
               className="btn-dashboard" 
               onClick={() => navigate('/dashboard')}
@@ -113,7 +125,6 @@ export const RoutinePage = () => {
 
       <main className="routine-main">
         {showForm ? (
-          // VISÃO: Formulário
           <div className="form-section-wrapper">
             <button
               className="btn-back"
@@ -124,24 +135,20 @@ export const RoutinePage = () => {
             >
               ← Voltar para Lista
             </button>
-            {/* Passamos a função de callback quando salvar */}
             <RoutineForm
               onRoutineCreated={handleRoutineSaved}
               editingRoutine={editingRoutine}
             />
           </div>
         ) : (
-          // VISÃO: Lista de Rotinas
           <div className="routines-section">
             
-            {/* Feedback de Sincronização */}
             {syncStatus && (
               <div className={`sync-status sync-${syncStatus.status}`}>
                 {syncStatus.message}
               </div>
             )}
 
-            {/* Barra de Ferramentas */}
             <div className="top-bar">
               <button
                 className="btn-new-routine"
@@ -166,7 +173,6 @@ export const RoutinePage = () => {
               </div>
             </div>
 
-            {/* Grid de Cards */}
             <div className="routines-list">
               {filteredRoutines.length === 0 ? (
                 <div className="empty-state">

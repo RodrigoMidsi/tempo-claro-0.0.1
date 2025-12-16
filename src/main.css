@@ -1,46 +1,110 @@
-/* Reset e Variáveis Globais */
-:root {
-  /* Cores Padrão */
-  --primary: #667eea;
-  --secondary: #764ba2;
-  --text-dark: #1f2937;
-  --text-light: #6b7280;
-  --bg-color: #f9fafb;
+/* ==========================================================================
+   MAIN.CSS - Estilos Globais e Definição de Temas
+   @audit-info - Centraliza variáveis, reset e tipografia
+   ========================================================================== */
 
-  /* Configuração de Fonte Otimizada */
+:root {
+  /* ------------------------------------------------------------------------
+     PALETA DE CORES (MODO CLARO - DEFAULT)
+     @audit-ok - 5.8 Design e Consistência
+     ------------------------------------------------------------------------ */
+  
+  /* Cores da Marca */
+  --primary: #667eea;
+  --primary-hover: #5568d3;
+  --secondary: #764ba2;
+  
+  /* Cores de Fundo */
+  --bg-page: #f9fafb;       /* Fundo geral da página */
+  --bg-card: #ffffff;       /* Fundo de cards e modais */
+  --bg-input: #ffffff;      /* Fundo de inputs */
+  --bg-hover: #f3f4f6;      /* Fundo de itens ao passar o mouse */
+  
+  /* Cores de Texto */
+  --text-primary: #1f2937;  /* Títulos e texto forte */
+  --text-secondary: #6b7280;/* Legendas e descrições */
+  --text-inverse: #ffffff;  /* Texto sobre fundos escuros/botões */
+  
+  /* Bordas e Divisórias */
+  --border-color: #e5e7eb;
+  --border-focus: rgba(102, 126, 234, 0.4);
+
+  /* Feedback */
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Tipografia Global */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  /* Melhora a leitura da fonte */
+  /* Renderização */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Reset Básico (Remove margens padrão dos navegadores) */
+/* ------------------------------------------------------------------------
+   PALETA DE CORES (MODO ESCURO)
+   @audit-info - Override de variáveis para Dark Mode
+   ------------------------------------------------------------------------ */
+[data-theme="dark"] {
+  /* Cores da Marca (Ajustadas para contraste em fundo escuro) */
+  --primary: #818cf8;       /* Mais claro para brilhar no escuro */
+  --primary-hover: #6366f1;
+  --secondary: #a78bfa;
+
+  /* Cores de Fundo */
+  --bg-page: #111827;       /* Cinza muito escuro (quase preto) */
+  --bg-card: #1f2937;       /* Cinza escuro para cards */
+  --bg-input: #374151;      /* Cinza médio para inputs */
+  --bg-hover: #374151;      /* Hover mais claro que o card */
+
+  /* Cores de Texto */
+  --text-primary: #f9fafb;  /* Branco suave */
+  --text-secondary: #9ca3af;/* Cinza claro */
+  
+  /* Bordas */
+  --border-color: #374151;  /* Bordas escuras */
+
+  /* Sombras (Mais sutis no dark mode) */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------------------------------------------
+   RESET E ESTRUTURA
+   ------------------------------------------------------------------------ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* Transição suave de cores ao trocar o tema */
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s; 
 }
 
-/* Garante que o app ocupe 100% da tela */
-html,
-body,
-#root {
+html, body, #root {
   width: 100%;
   height: 100%;
 }
 
 body {
-  background-color: var(--bg-color);
-  color: var(--text-dark);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
   min-width: 320px;
 }
 
-/* Elementos Globais (Links e Botões) */
+/* ------------------------------------------------------------------------
+   COMPONENTES GLOBAIS
+   ------------------------------------------------------------------------ */
 a {
   font-weight: 500;
   color: var(--primary);
@@ -53,7 +117,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Estilo padrão para botões (se você usar button nativo) */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -62,16 +125,16 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: var(--primary);
-  color: white;
+  color: var(--text-inverse); /* Garante texto branco no botão */
   cursor: pointer;
-  transition: background-color 0.25s;
+  transition: background-color 0.25s, transform 0.2s;
 }
 
 button:hover {
-  background-color: var(--secondary);
+  background-color: var(--primary-hover);
 }
 
-/* @audit-ok - 5.1 Acessibilidade (caps lock para selecionar buttons global) */
+/* @audit-ok - 5.1 Acessibilidade (Foco visível) */
 button:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
