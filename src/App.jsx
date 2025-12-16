@@ -9,6 +9,9 @@ import './App.css';
 
 function App() {
   return (
+
+    // @audit-info - Router: async rederizador de rotas 
+    // AuthContext: Armazena as variáveis de estádo de autenticação
     <Router>
       <AuthProvider>
         <Routes>

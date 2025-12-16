@@ -3,6 +3,9 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../Auth/useAuth';
 import { LoadingSpinner } from '../Common/LoadingSpinner';
 
+// @audit-info - Verificador de estado de login
+// @audit-ok - 4.3 - Segurança
+
 export const ProtectedRoute = ({ children }) => {
   const { user, carregando } = useAuth();
 
