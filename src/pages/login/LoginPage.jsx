@@ -1,109 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../components/Auth/useAuth';
 import { GoogleLoginButton } from '../../components/Auth/GoogleLoginButton';
 import { LoadingSpinner } from '../../components/Common/LoadingSpinner';
-import { loginManager } from './loginManager';
 import './LoginPage.css';
 
 export const LoginPage = () => {
-  const { user, isLoading } = useAuth();
+  const { user, carregando } = useAuth();
   const navigate = useNavigate();
-  const pageData = loginManager.getLoginPageData();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({ email: '', password: '' });
 
-  // Redirecionar se já estiver logado
+
   useEffect(() => {
-    loginManager.handleAuthCheck(user, isLoading, navigate);
-  }, [user, isLoading, navigate]);
-
-  const handleLoginChange = (field, value) => {
-    if (field === 'email') {
-      setEmail(value);
-    } else {
-      setPassword(value);
+    if (!carregando && user) {
+      navigate('/routine');
     }
-  };
+  }, [user, carregando, navigate]);
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = loginManager.validateCredentials(email, password);
-    
-    if (Object.keys(validationErrors).length === 0) {
-      // Credenciais válidas - recarregar página
-      window.location.reload();
-    } else {
-      setErrors(validationErrors);
-    }
-  };
-
-  if (loginManager.isPageLoading(isLoading)) {
+  if (carregando) {
     return <LoadingSpinner />;
   }
 
   return (
+
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <h1>{pageData.appTitle}</h1>
-          <p>{pageData.welcomeText}</p>
+          <h1>TEMPO-CLARO</h1>
+          <p>Bem-vindo ao nosso aplicativo</p>
         </div>
 
-        <div className="login-content">
-          <p className="login-description">
-            {pageData.loginDescription}
+        <div className="texto-login">
+          <p className="descricao-login">
+            Faça login para acessar suas rotinas e calendário.
           </p>
-
-          {/* Formulário de Login com Email e Senha */}
-          <form onSubmit={handleLoginSubmit} className="login-form">
-            <div className="form-group">
-              <label htmlFor="email" className="form-label">Email</label>
-              <input
-                id="email"
-                type="email"
-                className={`form-input ${errors.email ? 'input-error' : ''}`}
-                placeholder="Seu email"
-                value={email}
-                onChange={(e) => handleLoginChange('email', e.target.value)}
-              />
-              {errors.email && <span className="error-message">{errors.email}</span>}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password" className="form-label">Senha</label>
-              <input
-                id="password"
-                type="password"
-                className={`form-input ${errors.password ? 'input-error' : ''}`}
-                placeholder="Sua senha"
-                value={password}
-                onChange={(e) => handleLoginChange('password', e.target.value)}
-              />
-              {errors.password && <span className="error-message">{errors.password}</span>}
-            </div>
-
-            <button type="submit" className="login-button">
-              {pageData.loginButtonText}
-            </button>
-          </form>
-
-          <div className="login-divider">
-            <span>OU</span>
+          <div>
+            <GoogleLoginButton />
           </div>
-
-          <GoogleLoginButton />
         </div>
 
-        <div className="login-footer">
-          <p className="terms-text">
-            {pageData.termsText}{' '}
-            <a href={pageData.termsLink}>{pageData.termsLabel}</a> e{' '}
-            <a href={pageData.privacyLink}>{pageData.privacyLabel}</a>.
+        <div className="footer-login">
+          <p className="termos-login">
+            Ao fazer login, você concorda com nossos{' '}
+            <a href="/termos">Termos de Serviço</a> e{' '}
+            <a href="/privacidade">Política de Privacidade</a>.
           </p>
         </div>
       </div>
+
     </div>
   );
 };

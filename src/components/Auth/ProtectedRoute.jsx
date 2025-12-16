@@ -4,9 +4,9 @@ import { useAuth } from '../Auth/useAuth';
 import { LoadingSpinner } from '../Common/LoadingSpinner';
 
 export const ProtectedRoute = ({ children }) => {
-  const { user, isLoading } = useAuth();
+  const { user, carregando } = useAuth();
 
-  if (isLoading) {
+  if (carregando) {
     return <LoadingSpinner />;
   }
 

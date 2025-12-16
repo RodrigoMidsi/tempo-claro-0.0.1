@@ -5,7 +5,7 @@ export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [carregando, setcarregando] = useState(true);
   const [tokenClient, setTokenClient] = useState(null);
 
   useEffect(() => {
@@ -51,15 +51,15 @@ export const AuthProvider = ({ children }) => {
       }, 500);
       return () => clearInterval(timer);
     }
-    
-    setIsLoading(false);
+
+    setcarregando(false);
   }, []);
 
   // Processar o sucesso da autenticação
   const handleAuthSuccess = async (token, expiresInSeconds) => {
     try {
       setAccessToken(token);
-      
+
       // Salvar token e expiração
       const expirationTime = new Date().getTime() + (expiresInSeconds * 1000);
       localStorage.setItem('accessToken', token);
@@ -69,9 +69,9 @@ export const AuthProvider = ({ children }) => {
       const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      
+
       const userData = await userInfoResponse.json();
-      
+
       const userPayload = {
         id: userData.sub,
         name: userData.name,
@@ -114,13 +114,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      accessToken, 
-      isLoading, 
+    <AuthContext.Provider value={{
+      user,
+      accessToken,
+      carregando,
       loginWithGoogle, // Nova função exportada
       handleLogout,
-      getCalendarToken 
+      getCalendarToken
     }}>
       {children}
     </AuthContext.Provider>

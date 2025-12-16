@@ -18,11 +18,11 @@ export const uiManager = {
   /**
    * Redireciona para login quando não autenticado
    * @param {Object} user - usuário do contexto
-   * @param {boolean} isLoading - se está carregando
+   * @param {boolean} carregando - se está carregando
    * @param {Function} navigate - função navigate
    */
-  redirectIfNotAuthenticated(user, isLoading, navigate) {
-    if (user && !isLoading) {
+  redirectIfNotAuthenticated(user, carregando, navigate) {
+    if (user && !carregando) {
       return true; // Autenticado
     }
     return false;
@@ -31,12 +31,12 @@ export const uiManager = {
   /**
    * Redireciona para home quando já autenticado
    * @param {Object} user - usuário do contexto
-   * @param {boolean} isLoading - se está carregando
+   * @param {boolean} carregando - se está carregando
    * @param {Function} navigate - função navigate
    * @param {string} redirectPath - para onde redirecionar
    */
-  redirectIfAuthenticated(user, isLoading, navigate, redirectPath = '/routine') {
-    if (user && !isLoading) {
+  redirectIfAuthenticated(user, carregando, navigate, redirectPath = '/routine') {
+    if (user && !carregando) {
       navigate(redirectPath);
     }
   },
