@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuth } from './useAuth';
-import './GoogleLoginButton.css';
 
 export const GoogleLoginButton = () => {
   const { loginWithGoogle } = useAuth();
