@@ -38,27 +38,17 @@ export const googleCalendarManager = {
     });
   },
 
-  /**
-   * Sincroniza rotina com Google Calendar
-   * @param {Object} routine - Rotina estruturada
-   * @param {string} accessToken - Token de acesso do usuário logado
-   */
-  async syncRoutineToCalendar(routine, accessToken) {
-    try {
-      if (!accessToken) {
-        throw new Error('Token de acesso inválido. Por favor, faça login novamente.');
-      }
 
-      // AQUI ESTAVA O ERRO: Verificamos se window.gapi existe antes de acessar .client
+
+  async sincronizaRotinaParaGoogle(routine, accessToken) { // sincroniza rotina com Google Calendar
+    try {
       if (!window.gapi || !window.gapi.client) {
         await this.initializeCalendarAPI();
       }
-
       // Define o token para a requisição
       window.gapi.client.setToken({ access_token: accessToken });
-
-      // 1. Obter ou criar o calendário "TEMPO-CLARO Rotinas"
-      const calendarId = await this.getOrCreateRoutineCalendar();
+      // criar o calendário "TEMPO-CLARO Rotinas"
+      const calendarId = await this.criarRotinaNoCalendario();
 
       // 2. Gerar eventos baseados na recorrência
       const eventsToCreate = [];
@@ -112,22 +102,23 @@ export const googleCalendarManager = {
     }
   },
 
-  // --- Funções Auxiliares (Mantidas iguais) ---
 
-  async getOrCreateRoutineCalendar() {
+
+
+  async criarRotinaNoCalendario() {
     try {
       const response = await window.gapi.client.calendar.calendarList.list();
-      const calendars = response.result.items || [];
+      const calendarios = response.result.items || [];
       
-      const existingCalendar = calendars.find(
+      const calendarioExistente = calendarios.find( // verifica se já existe o calendário
         cal => cal.summary === 'TEMPO-CLARO Rotinas'
       );
 
-      if (existingCalendar) {
-        return existingCalendar.id;
+      if (calendarioExistente) { // retorna o ID existente
+        return calendarioExistente.id;
       }
 
-      const newCalendar = await window.gapi.client.calendar.calendars.insert({
+      const novoCalendar = await window.gapi.client.calendar.calendars.insert({  // cria novo calendário
         resource: {
           summary: 'TEMPO-CLARO Rotinas',
           description: 'Rotinas criadas pelo app TempoClaro',
@@ -135,11 +126,15 @@ export const googleCalendarManager = {
         },
       });
 
-      return newCalendar.result.id;
+      return novoCalendar.result.id; // retorna o ID do novo calendário
     } catch (error) {
-      throw new Error('Falha ao acessar calendário. Verifique se deu permissão.');
+      console.error("Erro detalhado do Google:", error);
+      throw new Error(`Erro no Google Calendar: ${error.message}`);
     }
   },
+
+
+
 
   generateEventDates(startDate, endDate, recurrence, daysOfWeek) {
     const dates = [];
@@ -178,18 +173,18 @@ export const googleCalendarManager = {
   },
 
   buildCalendarEvent(task, date, routineColor) {
-    const [startHour, startMin] = task.startTime.split(':');
-    const [endHour, endMin] = task.endTime.split(':');
+    const [horaInicio, horaFinal] = task.startTime.split(':');
+    const [horaFinal2, minutoFinal] = task.endTime.split(':');
 
     return {
       summary: task.title,
       description: task.description || '',
       start: {
-        dateTime: `${date}T${startHour}:${startMin}:00`,
+        dateTime: `${date}T${horaInicio}:${horaFinal}:00`,
         timeZone: 'America/Sao_Paulo',
       },
       end: {
-        dateTime: `${date}T${endHour}:${endMin}:00`,
+        dateTime: `${date}T${horaFinal2}:${minutoFinal}:00`,
         timeZone: 'America/Sao_Paulo',
       },
       colorId: this.mapColorToGoogleColorId(routineColor),

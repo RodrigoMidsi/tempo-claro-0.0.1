@@ -98,7 +98,6 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
       return;
     }
 
-    routineManager.saveRoutineToStorage(routine);
     onRoutineCreated(routine);
     setRoutine(routineManager.createEmptyRoutine());
     setCurrentTask(routineManager.createEmptyTask());
@@ -106,7 +105,7 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
     setConflicts([]);
   };
 
-  const totalDuration = routineManager.calculateTotalDuration(routine.tasks);
+  const totalDuration = routineManager.calculaTotalDeHotas(routine.tasks);
 
   const daysOfWeek = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
   const daysLabels = {

@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 export const GoogleLoginButton = () => {
-  const { loginWithGoogle } = useContext(AuthContext);
+  const { loginComGoogle } = useContext(AuthContext);
 
   return (
     <div className="google-login-button-wrapper">
       <button 
-        onClick={loginWithGoogle}
+        onClick={loginComGoogle}
         className="custom-google-btn"
       >
         <img 

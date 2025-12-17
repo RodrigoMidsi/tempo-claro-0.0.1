@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../context/ThemeContext'; // Importando o tema
+import { useTheme } from '../../context/ThemeContext'; 
 import { routineManager } from '../../service/routineManager';
 import './DashboardPage.css';
 
 export const DashboardPage = () => {
   const { user, capturaLogout } = useContext(AuthContext);
-  const { theme, botaoThema } = useTheme(); // Hook do tema
+  const { theme, botaoThema } = useTheme(); 
   const navigate = useNavigate();
 
   // Estado para armazenar as estatísticas
@@ -24,7 +24,7 @@ export const DashboardPage = () => {
 
   const calculateStats = () => {
     try {
-      const routines = routineManager.loadRoutinesFromStorage();
+      const routines = routineManager.carregaRotinasDoStorage();
 
       let totalTasks = 0;
       let activeRoutines = 0;

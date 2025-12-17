@@ -1,83 +1,78 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext'; // <--- IMPORTADO AQUI
+import { useTheme } from '../../context/ThemeContext'; 
 import { routineManager } from '../../service/routineManager';
 import { googleCalendarManager } from '../../service/googleCalendarManager';
 import { RoutineForm } from '../../components';
 import './RoutinePage.css';
 
 export const RoutinePage = () => {
+  // variáveis contexto, tema e navegação
   const { user, accessToken, capturaLogout } = useContext(AuthContext);
-  // Hook do tema
-  const { theme, botaoThema } = useTheme(); // <--- USADO AQUI
+  const { theme, botaoThema } = useTheme(); 
   const navigate = useNavigate();
 
-  const [routines, setRoutines] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [filterStatus, setFilterStatus] = useState('active');
-  const [editingRoutine, setEditingRoutine] = useState(null);
-  const [syncStatus, setSyncStatus] = useState(null);
+  // estados locais
+  const [routines, setRoutines] = useState([]); // Array de rotinas
+  const [showForm, mostraForm] = useState(false); // controla exibição, quando false mostra lista quando true mostra formulário
+  const [editingRoutine, editaRotina] = useState(null); // rotina que está sendo editada
+  const [syncStatus, sincronizaStatus] = useState(null); // status da sincronização com Google Calendar
 
-  useEffect(() => {
-    loadRoutines();
+  useEffect(() => { // executa ao montar o componente  
+    carregaRotinas();
   }, []);
-
-  const loadRoutines = () => {
-    const loaded = routineManager.loadRoutinesFromStorage();
-    const sorted = routineManager.sortRoutinesByDate(loaded, 'asc');
-    setRoutines(sorted);
+  
+  const carregaRotinas = () => { // para carregar as rotinas e ordenar elas de forma crescente
+    const loaded = routineManager.carregaRotinasDoStorage(); 
+    const ordena = routineManager.ordenaRotinaPorData(loaded);
+    setRoutines(ordena);
   };
 
-  const handleRoutineSaved = (routine) => {
-    loadRoutines();
-    setShowForm(false);
-    setEditingRoutine(null);
+const salvaRotina = (routine) => { // salva rotina 
+    routineManager.salvarRotinaNoStorage(routine); 
+    carregaRotinas();
+    mostraForm(false);
+    editaRotina(null);
   };
 
-  const handleDeleteRoutine = (routineId) => {
+  const deletaRotina = (routineId) => { // deleta rotina após confirmação do usuário
     if (window.confirm('Tem certeza que deseja deletar esta rotina?')) {
-      routineManager.deleteRoutineFromStorage(routineId);
-      loadRoutines();
+      routineManager.deletaRotinaDoStorage(routineId);
+      carregaRotinas();
     }
   };
 
-  const handleEditRoutine = (routine) => {
-    setEditingRoutine(routine);
-    setShowForm(true);
+  const editarRotina = (routine) => { // abre formulário para editar rotina
+    editaRotina(routine);
+    mostraForm(true);
   };
 
-  const handleExportToGoogle = async (routine) => {
-    setSyncStatus({ status: 'loading', message: 'Conectando ao Google Calendar...' });
+  const exportarParaGoogle = async (routine) => { // exporta rotina para Google Calendar
+    sincronizaStatus({ status: 'loading', message: 'Conectando ao Google Calendar...' });
 
-    if (!accessToken) {
+    if (!accessToken) { // valida token de acesso
       alert('Sessão expirada. Faça login novamente.');
       return;
     }
 
-    const result = await googleCalendarManager.syncRoutineToCalendar(routine, accessToken);
+    const result = await googleCalendarManager.sincronizaRotinaParaGoogle(routine, accessToken); // chama serviço de sincronização
 
-    if (result.success) {
-      setSyncStatus({ status: 'success', message: result.message });
-      setTimeout(() => {
-        googleCalendarManager.openGoogleCalendar(result.calendarId);
-        setSyncStatus(null);
-      }, 1500);
+    if (result.success) { 
+      sincronizaStatus({ status: 'success', message: result.message });
+      setTimeout(() => {  sincronizaStatus(null);  }, 1500);
     } else {
-      setSyncStatus({ status: 'error', message: result.message || 'Erro na sincronização' });
+      sincronizaStatus({ status: 'error', message: result.message || 'Erro na sincronização' });
     }
   };
 
-  const filteredRoutines = routineManager.filterRoutinesByStatus(routines, filterStatus);
-
-  return (
+return (
     <div className="routine-page-container">
       <header className="routine-header">
         <div className="header-content">
           <h1>TEMPO-CLARO</h1>
           <div className="header-actions">
-
-            {/* --- NOVO BOTÃO DE TEMA --- */}
+            
             <button
               className="btn-theme"
               onClick={botaoThema}
@@ -90,17 +85,10 @@ export const RoutinePage = () => {
                 cursor: 'pointer',
                 borderRadius: '6px'
               }}
-            >
-              {theme === 'light' ? '🌙' : '☀️'}
+            > {theme === 'light' ? '🌙' : '☀️'}
             </button>
-            {/* ------------------------- */}
 
-            <button
-              className="btn-dashboard"
-              onClick={() => navigate('/dashboard')}
-            >
-              📊 Dashboard
-            </button>
+            <button className="btn-dashboard" onClick={() => navigate('/dashboard')}> 📊 Dashboard  </button>
 
             <div className="user-info">
               {user?.picture && (
@@ -129,14 +117,14 @@ export const RoutinePage = () => {
             <button
               className="btn-back"
               onClick={() => {
-                setShowForm(false);
-                setEditingRoutine(null);
+                mostraForm(false);
+                editaRotina(null);
               }}
             >
               ← Voltar para Lista
             </button>
             <RoutineForm
-              onRoutineCreated={handleRoutineSaved}
+              onRoutineCreated={salvaRotina}
               editingRoutine={editingRoutine}
             />
           </div>
@@ -152,36 +140,25 @@ export const RoutinePage = () => {
             <div className="top-bar">
               <button
                 className="btn-new-routine"
-                onClick={() => setShowForm(true)}
+                onClick={() => mostraForm(true)}
               >
                 ➕ Nova Rotina
               </button>
 
-              <div className="filters">
-                <button
-                  className={`filter-btn ${filterStatus === 'active' ? 'active' : ''}`}
-                  onClick={() => setFilterStatus('active')}
-                >
-                  Ativas
-                </button>
-                <button
-                  className={`filter-btn ${filterStatus === 'future' ? 'active' : ''}`}
-                  onClick={() => setFilterStatus('future')}
-                >
-                  Futuras
-                </button>
-              </div>
+              {/* REMOVIDO: A div className="filters" com os botões foi apagada aqui */}
+            
             </div>
 
             <div className="routines-list">
-              {filteredRoutines.length === 0 ? (
+              {/* ALTERADO: De "filteredRoutines" para "routines" */}
+              {routines.length === 0 ? (
                 <div className="empty-state">
                   <p className="empty-icon">📭</p>
                   <h3>Nenhuma rotina encontrada</h3>
                   <p>Que tal criar uma nova rotina para organizar seu dia?</p>
                 </div>
               ) : (
-                filteredRoutines.map(routine => (
+                routines.map(routine => (
                   <div
                     key={routine.id}
                     className="routine-card"
@@ -199,18 +176,18 @@ export const RoutinePage = () => {
                     <div className="routine-info">
                       <span className="info-item">🎯 {routine.tasks.length} tarefas</span>
                       <span className="info-item">
-                        ⏱️ {routineManager.calculateTotalDuration(routine.tasks)}/dia
+                        ⏱️ {routineManager.calculaTotalDeHotas(routine.tasks)}/dia
                       </span>
                     </div>
 
                     <div className="routine-actions">
-                      <button className="btn-action btn-edit" onClick={() => handleEditRoutine(routine)}>
+                      <button className="btn-action btn-edit" onClick={() => editarRotina(routine)}>
                         ✏️ Editar
                       </button>
-                      <button className="btn-action btn-export" onClick={() => handleExportToGoogle(routine)}>
+                      <button className="btn-action btn-export" onClick={() => exportarParaGoogle(routine)}>
                         📅 Exportar
                       </button>
-                      <button className="btn-action btn-delete" onClick={() => handleDeleteRoutine(routine.id)}>
+                      <button className="btn-action btn-delete" onClick={() => deletaRotina(routine.id)}>
                         🗑️
                       </button>
                     </div>

@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
         setAccessToken(savedToken);
 
       } else {
-        capturaLogout();
+        capturaLogout(); 
       }
     }
     // função do Google para o botão de login
@@ -101,6 +101,7 @@ export const AuthProvider = ({ children }) => {
       return false;
     };
 
+    // se o cliente não inicializou, tenta a cada 500ms até conseguir (tempo de download da lib do google)
     if (!initClient()) {
       const timer = setInterval(() => {
         if (initClient()) clearInterval(timer);
@@ -108,9 +109,11 @@ export const AuthProvider = ({ children }) => {
 
       return () => clearInterval(timer);
     }
-  }, [capturaLogout]);
+  }, [capturaLogout]); //garante que o efeito tenha acesso à versão mais recente da função capturaLogout
 
-  const loginWithGoogle = () => {
+
+  // função de inicialização de login com google
+  const loginComGoogle = () => {
     if (tokenClient) {
       tokenClient.requestAccessToken();
     } else {
@@ -118,17 +121,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // função para obter o token do calendário
   const getCalendarToken = useCallback(async () => {
     return accessToken;
   }, [accessToken]);
 
+  // Retorno final
   return (
     <AuthContext.Provider
       value={{
         user,
         accessToken,
         carregando,
-        loginWithGoogle,
+        loginComGoogle,
         capturaLogout: capturaLogout,
         getCalendarToken,
       }}

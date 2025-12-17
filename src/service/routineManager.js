@@ -117,89 +117,70 @@ export const routineManager = {
     return conflicts;
   },
 
-  /**
-   * Calcula duração total de tarefas
-   * @param {Array} tasks - Lista de tarefas
-   * @returns {string} Duração formatada (ex: "2h 30min")
-   */
-  calculateTotalDuration(tasks) {
+  /** Calcula duração total das tarefas em horas e minutos */
+  calculaTotalDeHotas(tarefasList) {
     let totalMinutes = 0;
 
-    tasks.forEach(task => {
-      const [startHour, startMin] = task.startTime.split(':').map(Number);
-      const [endHour, endMin] = task.endTime.split(':').map(Number);
+    tarefasList.forEach(tarefa => {
+      const [horaInicio, horaFinal] = tarefa.startTime.split(':').map(Number); // converter para números
+      const [horaFinal2, minutoFinal] = tarefa.endTime.split(':').map(Number); 
 
-      const startTotalMin = startHour * 60 + startMin;
-      const endTotalMin = endHour * 60 + endMin;
-      totalMinutes += endTotalMin - startTotalMin;
+      const startTotalMin = horaInicio * 60 + horaFinal; // converte tudo para minutos
+      const endTotalMin = horaFinal2 * 60 + minutoFinal; 
+      totalMinutes += endTotalMin - startTotalMin; // acumula diferença em minutos
     });
 
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
+    const horas = Math.floor(totalMinutes / 60); // calcula horas inteiras
+    const minutos = totalMinutes % 60;
 
-    if (hours === 0) return `${minutes}min`;
-    if (minutes === 0) return `${hours}h`;
-    return `${hours}h ${minutes}min`;
+    if (horas === 0) return `${minutos}min`;
+    if (minutos === 0) return `${horas}h`;
+    return `${horas}h ${minutos}min`;
   },
 
-  /**
-   * Salva rotina no localStorage
-   * @param {Object} routine - Rotina a salvar
-   */
-  saveRoutineToStorage(routine) {
+  salvarRotinaNoStorage(routine) { // salva rotina no localStorage
     try {
-      const routines = JSON.parse(localStorage.getItem('routines') || '[]');
+      const routines = JSON.parse(localStorage.getItem('routines') || '[]'); // carrega rotinas
       
-      // Se tem ID, atualiza; senão, adiciona
-      const existingIndex = routines.findIndex(r => r.id === routine.id);
-      if (existingIndex >= 0) {
-        routines[existingIndex] = routine;
-      } else {
+      const RotinaIndex = routines.findIndex(r => r.id === routine.id); // verifica se já existe
+      if (RotinaIndex >= 0) { // atualiza rotina existente
+        routines[RotinaIndex] = routine;
+      } else { // adiciona nova rotina
         routines.push(routine);
       }
       
-      localStorage.setItem('routines', JSON.stringify(routines));
+      localStorage.setItem('routines', JSON.stringify(routines)); // salva de volta no storage
       return true;
-    } catch (err) {
-      console.error('Erro ao salvar rotina:', err);
+    } catch (erro) {
+      console.error('Erro ao salvar rotina:', erro);
       return false;
     }
   },
 
-  /**
-   * Carrega rotinas do localStorage
-   * @returns {Array} Array de rotinas
-   */
-  loadRoutinesFromStorage() {
+  /** Carrega rotinas do localStorage e entrega uma Array de rotinas */
+  carregaRotinasDoStorage() {
     try {
       return JSON.parse(localStorage.getItem('routines') || '[]');
-    } catch (err) {
-      console.error('Erro ao carregar rotinas:', err);
+    } catch (erro) {
+      console.error('Erro ao carregar rotinas:', erro);
       return [];
     }
   },
 
-  /**
-   * Deleta rotina do localStorage
-   * @param {number} routineId - ID da rotina
-   */
-  deleteRoutineFromStorage(routineId) {
+  deletaRotinaDoStorage(routineId) {
     try {
-      const routines = JSON.parse(localStorage.getItem('routines') || '[]');
-      const filtered = routines.filter(r => r.id !== routineId);
-      localStorage.setItem('routines', JSON.stringify(filtered));
+      const routines = JSON.parse(localStorage.getItem('routines') || '[]'); // carrega rotinas ou array vazio
+      const routinesFiltrada = routines.filter(r => r.id !== routineId); // filtra removendo a rotina com o ID fornecido
+      localStorage.setItem('routines', JSON.stringify(routinesFiltrada)); // salva de volta o array filtrado
       return true;
-    } catch (err) {
-      console.error('Erro ao deletar rotina:', err);
+    } catch (erro) {
+      console.error('Erro ao deletar rotina:', erro);
       return false;
     }
   },
 
-  /**
-   * Converte rotina para eventos do Google Calendar
-   * @param {Object} routine - Rotina a converter
-   * @returns {Array} Array de eventos
-   */
+
+
   convertToGoogleCalendarEvents(routine) {
     const events = [];
     const dayMap = {
@@ -294,45 +275,12 @@ export const routineManager = {
     return colorMap[color] || '1';
   },
 
-  /**
-   * Filtra rotinas por status
-   * @param {Array} routines - Lista de rotinas
-   * @param {string} status - 'active', 'past', 'future'
-   * @returns {Array} Rotinas filtradas
-   */
-  filterRoutinesByStatus(routines, status) {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    return routines.filter(routine => {
-      const start = new Date(routine.startDate);
-      const end = new Date(routine.endDate);
-      
-      start.setHours(0, 0, 0, 0);
-      end.setHours(0, 0, 0, 0);
-
-      if (status === 'active') {
-        return start <= today && today <= end && routine.isActive;
-      } else if (status === 'past') {
-        return end < today;
-      } else if (status === 'future') {
-        return start > today;
-      }
-      return true;
-    });
-  },
-
-  /**
-   * Ordena rotinas por data
-   * @param {Array} routines - Lista de rotinas
-   * @param {string} order - 'asc' ou 'desc'
-   * @returns {Array} Rotinas ordenadas
-   */
-  sortRoutinesByDate(routines, order = 'asc') {
-    return [...routines].sort((a, b) => {
-      const dateA = new Date(a.startDate);
-      const dateB = new Date(b.startDate);
-      return order === 'asc' ? dateA - dateB : dateB - dateA;
+  /** Ordena rotinas por data de início */
+  ordenaRotinaPorData(routines) {
+    return [...routines].sort((a, b) => { // copia para evitar mutação da original
+      const dateA = new Date(a.startDate); // converte para objeto Date para comparação
+      const dateB = new Date(b.startDate); 
+      return dateA - dateB; // ordena ascendente pela regra do sort que o menor vem primeiro
     });
   },
 };
