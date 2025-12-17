@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useCallback } from 'react';
 
 export const AuthContext = createContext(null); // valor inicial
 
-export const aAuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Guarda o objeto JSON com os dados do perfil
   const [accessToken, setAccessToken] = useState(null); // token OAuth2 (Bearer Token) para requisições com google
   const [carregando, setCarregando] = useState(true); // bool carregador
