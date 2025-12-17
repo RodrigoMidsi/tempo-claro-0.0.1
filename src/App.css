@@ -1,11 +1,6 @@
-/* ==========================================================================
-   APP.CSS - Estilos específicos do App e Loader
-   ========================================================================== */
+/* APP.CSS - Estilos do App e spinner */
 
-/* @audit-info - Container de Carregamento Global
-   Mantemos o gradiente original pois é a identidade da marca,
-   mesmo no Dark Mode.
-*/
+/* @audit-info - Container de Carregamento Global */
 .loading-container {
   display: flex;
   justify-content: center;
@@ -24,5 +19,7 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

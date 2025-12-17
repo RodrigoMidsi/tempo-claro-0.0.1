@@ -1,62 +1,62 @@
-/* ==========================================================================
-   MAIN.CSS - Estilos Globais e Definição de Temas
-   @audit-info - Centraliza variáveis, reset e tipografia
-   ========================================================================== */
+/* Estilos Globais e Definição de Temas */
 
 :root {
-  /* ------------------------------------------------------------------------
-     PALETA DE CORES (MODO CLARO - DEFAULT)
-     @audit-ok - 5.8 Design e Consistência
-     ------------------------------------------------------------------------ */
-  
+  /* LIGHT MODE (DEFAULT)
+     @audit-ok - 5.8 Design e Consistência */
   /* Cores da Marca */
+
   --primary: #667eea;
   --primary-hover: #5568d3;
   --secondary: #764ba2;
   
   /* Cores de Fundo */
+
   --bg-page: #f9fafb;       /* Fundo geral da página */
   --bg-card: #ffffff;       /* Fundo de cards e modais */
   --bg-input: #ffffff;      /* Fundo de inputs */
   --bg-hover: #f3f4f6;      /* Fundo de itens ao passar o mouse */
   
   /* Cores de Texto */
+
   --text-primary: #1f2937;  /* Títulos e texto forte */
   --text-secondary: #6b7280;/* Legendas e descrições */
   --text-inverse: #ffffff;  /* Texto sobre fundos escuros/botões */
   
   /* Bordas e Divisórias */
+
   --border-color: #e5e7eb;
   --border-focus: rgba(102, 126, 234, 0.4);
 
   /* Feedback */
+
   --color-success: #10b981;
   --color-danger: #ef4444;
   --color-warning: #f59e0b;
   
   /* Sombras */
+
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 
   /* Tipografia Global */
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   /* Renderização */
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ------------------------------------------------------------------------
-   PALETA DE CORES (MODO ESCURO)
-   @audit-info - Override de variáveis para Dark Mode
-   ------------------------------------------------------------------------ */
+/* DARK MODE
+ @audit-info - Override de variáveis para Dark Mode */
 [data-theme="dark"] {
-  /* Cores da Marca (Ajustadas para contraste em fundo escuro) */
+  /* Cores da Marca */
   --primary: #818cf8;       /* Mais claro para brilhar no escuro */
   --primary-hover: #6366f1;
   --secondary: #a78bfa;
@@ -80,9 +80,7 @@
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* ------------------------------------------------------------------------
-   RESET E ESTRUTURA
-   ------------------------------------------------------------------------ */
+/* ESTRUTURA */
 * {
   margin: 0;
   padding: 0;
@@ -102,9 +100,7 @@ body {
   min-width: 320px;
 }
 
-/* ------------------------------------------------------------------------
-   COMPONENTES GLOBAIS
-   ------------------------------------------------------------------------ */
+/* COMPONENTES GLOBAIS */
 a {
   font-weight: 500;
   color: var(--primary);

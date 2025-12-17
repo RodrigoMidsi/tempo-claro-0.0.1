@@ -1,29 +1,30 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
-// 1. Cria o contexto
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  // Lê do localStorage ou usa 'light' como padrão
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
+  /* Lembrete: roda na primeira renderização e quando esta função anônima
+  [alguma coisa] mudar, execute essa função, nesse caso o [theme]. */
   useEffect(() => {
-    // 2. Atualiza o atributo data-theme no HTML
     document.documentElement.setAttribute('data-theme', theme);
-    // 3. Salva a preferência
+    /* setAttribute põe <html data-theme="tema dark ou light"> para mudar o css*/
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => {
+  /* botão */
+  const botaoThema = () => {
     setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));
   };
 
+  /* entrega para todo app o theme e botaoThema para o botão */
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, botaoThema }}>
       {children}
     </ThemeContext.Provider>
   );
 };
 
-// Hook personalizado para facilitar o uso
+// Hook: export const { theme, setTheme } = useTheme();
 export const useTheme = () => useContext(ThemeContext);

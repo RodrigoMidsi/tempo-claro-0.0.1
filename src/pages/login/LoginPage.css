@@ -1,10 +1,5 @@
-/* ==========================================================================
-   LOGIN PAGE.CSS - Estilos da tela de autenticação
-   ========================================================================== */
+/* LOGIN PAGE.CSS */
 
-/* @audit-info - Container Principal
-   O gradiente de fundo permanece o mesmo para identidade visual.
-*/
 .login-container {
   display: flex;
   justify-content: center;
@@ -16,8 +11,8 @@
 
 /* Card de Login */
 .login-card {
-  background: var(--bg-card);      /* Adapta ao Dark Mode */
-  color: var(--text-primary);      /* Adapta ao Dark Mode */
+  background: var(--bg-card);      /* Adapta ao main */
+  color: var(--text-primary);      /* Adapta ao main */
   border-radius: 12px;
   box-shadow: var(--shadow-lg);
   width: 100%;
@@ -69,7 +64,7 @@
   line-height: 1.5;
 }
 
-/* Botão Google (Customização) */
+/* Botão Google */
 .google-login-button-wrapper {
   display: flex;
   justify-content: center;
@@ -80,7 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-card); /* No dark mode, o botão fica escuro */
+  background-color: var(--bg-card);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;

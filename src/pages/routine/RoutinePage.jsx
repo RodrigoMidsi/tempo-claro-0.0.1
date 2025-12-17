@@ -2,20 +2,20 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext'; // <--- IMPORTADO AQUI
-import { routineManager } from '../../service/routineManager'; 
+import { routineManager } from '../../service/routineManager';
 import { googleCalendarManager } from '../../service/googleCalendarManager';
-import { RoutineForm } from '../../components'; 
+import { RoutineForm } from '../../components';
 import './RoutinePage.css';
 
 export const RoutinePage = () => {
-  const { user, accessToken, handleLogout } = useContext(AuthContext);
+  const { user, accessToken, capturaLogout } = useContext(AuthContext);
   // Hook do tema
-  const { theme, toggleTheme } = useTheme(); // <--- USADO AQUI
+  const { theme, botaoThema } = useTheme(); // <--- USADO AQUI
   const navigate = useNavigate();
-  
+
   const [routines, setRoutines] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [filterStatus, setFilterStatus] = useState('active'); 
+  const [filterStatus, setFilterStatus] = useState('active');
   const [editingRoutine, setEditingRoutine] = useState(null);
   const [syncStatus, setSyncStatus] = useState(null);
 
@@ -30,7 +30,7 @@ export const RoutinePage = () => {
   };
 
   const handleRoutineSaved = (routine) => {
-    loadRoutines(); 
+    loadRoutines();
     setShowForm(false);
     setEditingRoutine(null);
   };
@@ -54,9 +54,9 @@ export const RoutinePage = () => {
       alert('Sessão expirada. Faça login novamente.');
       return;
     }
-    
+
     const result = await googleCalendarManager.syncRoutineToCalendar(routine, accessToken);
-    
+
     if (result.success) {
       setSyncStatus({ status: 'success', message: result.message });
       setTimeout(() => {
@@ -76,11 +76,11 @@ export const RoutinePage = () => {
         <div className="header-content">
           <h1>TEMPO-CLARO</h1>
           <div className="header-actions">
-            
+
             {/* --- NOVO BOTÃO DE TEMA --- */}
-            <button 
-              className="btn-theme" 
-              onClick={toggleTheme}
+            <button
+              className="btn-theme"
+              onClick={botaoThema}
               title={`Mudar para modo ${theme === 'light' ? 'escuro' : 'claro'}`}
               style={{
                 background: 'transparent',
@@ -95,24 +95,24 @@ export const RoutinePage = () => {
             </button>
             {/* ------------------------- */}
 
-            <button 
-              className="btn-dashboard" 
+            <button
+              className="btn-dashboard"
               onClick={() => navigate('/dashboard')}
             >
               📊 Dashboard
             </button>
-            
+
             <div className="user-info">
               {user?.picture && (
                 <img src={user.picture} alt={user.name} className="user-avatar" />
               )}
               <div className="user-details">
                 <p className="user-name">{user?.name}</p>
-                <button 
+                <button
                   onClick={() => {
-                    handleLogout();
+                    capturaLogout();
                     navigate('/login');
-                  }} 
+                  }}
                   className="logout-btn"
                 >
                   Sair
@@ -142,7 +142,7 @@ export const RoutinePage = () => {
           </div>
         ) : (
           <div className="routines-section">
-            
+
             {syncStatus && (
               <div className={`sync-status sync-${syncStatus.status}`}>
                 {syncStatus.message}
@@ -191,7 +191,7 @@ export const RoutinePage = () => {
                       <div className="routine-title">
                         <h3>{routine.name}</h3>
                         <span className="routine-dates">
-                           Início: {new Date(routine.startDate).toLocaleDateString('pt-BR')}
+                          Início: {new Date(routine.startDate).toLocaleDateString('pt-BR')}
                         </span>
                       </div>
                     </div>

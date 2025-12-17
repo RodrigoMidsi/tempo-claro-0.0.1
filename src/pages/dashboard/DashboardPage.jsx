@@ -6,8 +6,8 @@ import { routineManager } from '../../service/routineManager';
 import './DashboardPage.css';
 
 export const DashboardPage = () => {
-  const { user, handleLogout } = useContext(AuthContext);
-  const { theme, toggleTheme } = useTheme(); // Hook do tema
+  const { user, capturaLogout } = useContext(AuthContext);
+  const { theme, botaoThema } = useTheme(); // Hook do tema
   const navigate = useNavigate();
 
   // Estado para armazenar as estatísticas
@@ -25,7 +25,7 @@ export const DashboardPage = () => {
   const calculateStats = () => {
     try {
       const routines = routineManager.loadRoutinesFromStorage();
-      
+
       let totalTasks = 0;
       let activeRoutines = 0;
       let totalDurationMinutes = 0;
@@ -59,8 +59,8 @@ export const DashboardPage = () => {
     }
   };
 
-  const handleLogoutClick = () => {
-    handleLogout();
+  const capturaLogoutClick = () => {
+    capturaLogout();
     navigate('/login');
   };
 
@@ -70,12 +70,12 @@ export const DashboardPage = () => {
       <header className="dashboard-header">
         <div className="header-content">
           <h1>TEMPO-CLARO</h1>
-          
+
           <div className="header-actions">
-             {/* Botão de Tema */}
-            <button 
-              className="btn-theme" 
-              onClick={toggleTheme}
+            {/* Botão de Tema */}
+            <button
+              className="btn-theme"
+              onClick={botaoThema}
               title={`Mudar para modo ${theme === 'light' ? 'escuro' : 'claro'}`}
               style={{
                 background: 'transparent',
@@ -90,20 +90,20 @@ export const DashboardPage = () => {
             </button>
 
             {/* Navegação para Rotinas */}
-            <button 
-              className="btn-nav" 
+            <button
+              className="btn-nav"
               onClick={() => navigate('/routine')}
             >
               📅 Rotinas
             </button>
-            
+
             <div className="user-info">
               {user?.picture && (
                 <img src={user.picture} alt={user.name} className="user-avatar" />
               )}
               <div className="user-details">
                 <p className="user-name">{user?.name}</p>
-                <button onClick={handleLogoutClick} className="logout-btn">
+                <button onClick={capturaLogoutClick} className="logout-btn">
                   Sair
                 </button>
               </div>
@@ -120,51 +120,51 @@ export const DashboardPage = () => {
           </div>
           {/* Botão extra de ação rápida */}
           <div className="nav-buttons">
-            <button 
-              className="btn-action-primary" 
+            <button
+              className="btn-action-primary"
               onClick={() => navigate('/routine')}
             >
               Começar Agora
             </button>
           </div>
         </div>
-        
+
         <div className="stats-grid">
-           <div className="stat-card stat-total">
-             <div className="stat-header">
-               <h3>Total de Rotinas</h3>
-               <span className="stat-icon">📚</span>
-             </div>
-             <div className="stat-value">{stats.routinesCount}</div>
-             <p className="stat-description">Rotinas cadastradas</p>
-           </div>
+          <div className="stat-card stat-total">
+            <div className="stat-header">
+              <h3>Total de Rotinas</h3>
+              <span className="stat-icon">📚</span>
+            </div>
+            <div className="stat-value">{stats.routinesCount}</div>
+            <p className="stat-description">Rotinas cadastradas</p>
+          </div>
 
-           <div className="stat-card stat-completed">
-             <div className="stat-header">
-               <h3>Em Atividade</h3>
-               <span className="stat-icon">⚡</span>
-             </div>
-             <div className="stat-value">{stats.activeRoutines}</div>
-             <p className="stat-description">Rotinas em execução hoje</p>
-           </div>
+          <div className="stat-card stat-completed">
+            <div className="stat-header">
+              <h3>Em Atividade</h3>
+              <span className="stat-icon">⚡</span>
+            </div>
+            <div className="stat-value">{stats.activeRoutines}</div>
+            <p className="stat-description">Rotinas em execução hoje</p>
+          </div>
 
-           <div className="stat-card stat-inprogress">
-             <div className="stat-header">
-               <h3>Tarefas Diárias</h3>
-               <span className="stat-icon">✅</span>
-             </div>
-             <div className="stat-value">{stats.totalTasks}</div>
-             <p className="stat-description">Ações programadas</p>
-           </div>
+          <div className="stat-card stat-inprogress">
+            <div className="stat-header">
+              <h3>Tarefas Diárias</h3>
+              <span className="stat-icon">✅</span>
+            </div>
+            <div className="stat-value">{stats.totalTasks}</div>
+            <p className="stat-description">Ações programadas</p>
+          </div>
 
-           <div className="stat-card stat-pending">
-             <div className="stat-header">
-               <h3>Tempo Alocado</h3>
-               <span className="stat-icon">⏱️</span>
-             </div>
-             <div className="stat-value" style={{fontSize: '28px'}}>{stats.totalDuration}</div>
-             <p className="stat-description">Duração total diária</p>
-           </div>
+          <div className="stat-card stat-pending">
+            <div className="stat-header">
+              <h3>Tempo Alocado</h3>
+              <span className="stat-icon">⏱️</span>
+            </div>
+            <div className="stat-value" style={{ fontSize: '28px' }}>{stats.totalDuration}</div>
+            <p className="stat-description">Duração total diária</p>
+          </div>
         </div>
       </main>
 
