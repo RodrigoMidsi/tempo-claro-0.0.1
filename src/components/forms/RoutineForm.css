@@ -97,7 +97,7 @@
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15); /* Glow suave */
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 
 /* --- 4. Seletor de Dias (Checkboxes Bonitos) --- */

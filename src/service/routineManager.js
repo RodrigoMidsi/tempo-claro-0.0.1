@@ -1,27 +1,23 @@
 export const routineManager = {
 
   // Cria estrutura inicial de rotina
-  criaRotinaModel() {
+criaRotinaModel() {
     return {
       id: Date.now(),
       name: '',
-      description: '',
       startDate: '',
       endDate: '',
-      recurrence: 'diario', 
       color: '#667eea',
       tasks: [],
       createdAt: new Date().toISOString(),
-      isActive: true,
     };
   },
 
   // Cria estrutura inicial de tarefa
-  criaTarefaModel() {
+criaTarefaModel() {
     return {
       id: Date.now(),
       title: '',
-      description: '',
       startTime: '09:00',
       endTime: '10:00',
       daysOfWeek: ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'],
@@ -66,38 +62,6 @@ export const routineManager = {
     });
 
     return erro;
-  },
-
-  // Detecta conflitos entre tarefas em uma rotina
-  // CORREÇÃO: Mudei o parametro 'rotina' para 'tarefas' para o loop funcionar corretamente
-  verificaConflitoDeHora(tarefas) {
-    const conflitos = [];
-
-    for (let i = 0; i < tarefas.length; i++) {
-      for (let j = i + 1; j < tarefas.length; j++) {
-        const rotina1 = tarefas[i];
-        const rotina2 = tarefas[j];
-
-        // Verificar se compartilham dias
-        const commonDays = rotina1.daysOfWeek.filter(day =>
-          rotina2.daysOfWeek.includes(day)
-        );
-
-        if (commonDays.length > 0) {
-          // Verificar sobreposição de horário
-          if (rotina1.startTime < rotina2.endTime && rotina2.startTime < rotina1.endTime) {
-            conflitos.push({
-              task1: rotina1.title,
-              task2: rotina2.title,
-              days: commonDays,
-              message: `"${rotina1.title}" conflita com "${rotina2.title}" em ${commonDays.join(', ')}`,
-            });
-          }
-        }
-      }
-    }
-
-    return conflitos;
   },
 
   /** Calcula duração total das tarefas em horas e minutos */

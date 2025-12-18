@@ -57,7 +57,6 @@ export const googleCalendarManager = {
         const dates = this.generateEventDates(
           routine.startDate,
           routine.endDate,
-          routine.recurrence,
           task.daysOfWeek
         );
 
@@ -136,12 +135,12 @@ export const googleCalendarManager = {
 
 
 
-  generateEventDates(startDate, endDate, recurrence, daysOfWeek) {
+generateEventDates(startDate, endDate, daysOfWeek) {
     const dates = [];
     const start = new Date(startDate);
     const end = new Date(endDate);
     
-    // Ajuste de fuso para garantir cálculo correto de dias
+    // Ajuste de fuso
     start.setHours(12,0,0,0);
     end.setHours(12,0,0,0);
 
@@ -150,6 +149,7 @@ export const googleCalendarManager = {
       'quinta': 4, 'sexta': 5, 'sábado': 6
     };
 
+    // Mapeia os nomes dos dias para números (0-6)
     const selectedDayNumbers = daysOfWeek.map(day => dayNumberMap[day.toLowerCase()]);
 
     let current = new Date(start);
@@ -157,12 +157,8 @@ export const googleCalendarManager = {
     while (current <= end) {
       const dayOfWeek = current.getDay();
 
-      if (recurrence === 'once') {
-        dates.push(current.toISOString().split('T')[0]);
-        break;
-      }
-
-      if (recurrence === 'daily' || selectedDayNumbers.includes(dayOfWeek)) {
+      // Se o dia da semana atual estiver na lista, adiciona
+      if (selectedDayNumbers.includes(dayOfWeek)) {
         dates.push(current.toISOString().split('T')[0]);
       }
       
@@ -172,13 +168,12 @@ export const googleCalendarManager = {
     return dates;
   },
 
-  buildCalendarEvent(task, date, routineColor) {
+    buildCalendarEvent(task, date, routineColor) {
     const [horaInicio, horaFinal] = task.startTime.split(':');
     const [horaFinal2, minutoFinal] = task.endTime.split(':');
 
     return {
       summary: task.title,
-      description: task.description || '',
       start: {
         dateTime: `${date}T${horaInicio}:${horaFinal}:00`,
         timeZone: 'America/Sao_Paulo',
