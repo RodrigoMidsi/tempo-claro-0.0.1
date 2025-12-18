@@ -51,7 +51,7 @@ const salvaRotina = (routine) => { // salva rotina
   };
 
   const exportarParaGoogle = async (routine) => { // exporta rotina para Google Calendar
-    sincronizaStatus({ status: 'loading', message: 'Conectando ao Google Calendar...' });
+    sincronizaStatus({ status: 'loading', message: 'Conectando ao Google...' });
 
     if (!accessToken) { // valida token de acesso
       alert('Sessão expirada. Faça login novamente.');
