@@ -1,12 +1,12 @@
 /* Página de Rotina */
-.routine-page-container {
+.container-pagina-rotina {
   min-height: 100vh;
-  background-color: var(--bg-page);
+  background-color: var(--fundo-pagina);
 }
 
 /* Estilização do ícone */
-.empty-icon {
-  color: var(--text-secondary); 
+.icone-vazio {
+  color: var(--texto-secundario); 
   margin-bottom: 16px;
   display: flex;
   justify-content: center;
@@ -15,22 +15,22 @@
 }
 
 /* para o wrapper do form não quebre o layout */
-.form-section-wrapper {
+.wrapper-secao-formulario {
   width: 100%;
 }
 
-/*  header */
-.routine-header {
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
+/* header */
+.cabecalho-rotina {
+  background: var(--fundo-cartao);
+  border-bottom: 1px solid var(--cor-borda);
+  box-shadow: var(--sombra-p);
   padding: 20px 0;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-.routine-header .header-content {
+.cabecalho-rotina .conteudo-cabecalho {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
@@ -39,23 +39,23 @@
   align-items: center;
 }
 
-.routine-header h1 {
-  color: var(--text-primary);
+.cabecalho-rotina h1 {
+  color: var(--texto-primario);
   font-size: 24px;
   margin: 0;
 }
 
 /* Ações do Header (User & Nav) */
-.header-actions {
+.acoes-cabecalho {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.btn-dashboard {
-  background: var(--bg-page);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
+.botao-dashboard {
+  background: var(--fundo-pagina);
+  color: var(--texto-primario);
+  border: 1px solid var(--cor-borda);
   padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
@@ -63,34 +63,34 @@
   transition: all 0.3s;
 }
 
-.btn-dashboard:hover {
-  background: var(--bg-hover);
-  border-color: var(--primary);
+.botao-dashboard:hover {
+  background: var(--fundo-hover);
+  border-color: var(--cor-primaria);
 }
 
-.user-info {
+.info-usuario {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.user-avatar {
+.avatar-usuario {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--cor-borda);
 }
 
-.user-name {
+.nome-usuario {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--texto-primario);
 }
 
-.logout-btn {
-  background: var(--color-danger);
+.botao-sair {
+  background: var(--cor-perigo);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -100,21 +100,21 @@
   transition: all 0.3s;
 }
 
-.logout-btn:hover {
+.botao-sair:hover {
   filter: brightness(0.9);
 }
 
-/*  Área principal */
-.routine-main {
+/* Área principal */
+.principal-rotina {
   max-width: 1400px;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
-.btn-back {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
+.botao-voltar {
+  background: var(--fundo-cartao);
+  border: 1px solid var(--cor-borda);
+  color: var(--texto-primario);
   padding: 10px 16px;
   border-radius: 6px;
   cursor: pointer;
@@ -122,12 +122,12 @@
   margin-bottom: 20px;
 }
 
-.btn-back:hover {
-  background: var(--bg-hover);
+.botao-voltar:hover {
+  background: var(--fundo-hover);
 }
 
 /* Barra de Ferramentas (Filtros e Novo) */
-.top-bar {
+.barra-topo {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -136,8 +136,8 @@
   gap: 12px;
 }
 
-.btn-new-routine {
-  background: var(--primary);
+.botao-nova-rotina {
+  background: var(--cor-primaria);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -146,95 +146,69 @@
   font-weight: 600;
 }
 
-.btn-new-routine:hover {
-  background: var(--primary-hover);
+.botao-nova-rotina:hover {
+  background: var(--cor-primaria-hover);
   transform: translateY(-2px);
 }
 
-.filters {
-  display: flex;
-  gap: 8px;
-}
-
-.filter-btn {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.filter-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.filter-btn.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: white;
-}
-
 /* cards de rotina */
-.routines-list {
+.lista-rotinas {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 20px;
 }
 
-.routine-card {
-  background: var(--bg-card);
+.cartao-rotina {
+  background: var(--fundo-cartao);
   border-radius: 12px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--sombra-p);
   overflow: hidden;
   transition: all 0.3s;
   border-left: 5px solid; 
 }
 
-.routine-card:hover {
-  box-shadow: var(--shadow-md);
+.cartao-rotina:hover {
+  box-shadow: var(--sombra-m);
   transform: translateY(-2px);
 }
 
-.routine-header-card {
+.cabecalho-cartao-rotina {
   padding: 16px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--cor-borda);
 }
 
-.routine-title h3 {
+.titulo-rotina h3 {
   margin: 0 0 6px 0;
-  color: var(--text-primary);
+  color: var(--texto-primario);
   font-size: 16px;
 }
 
-.routine-dates {
-  color: var(--text-secondary);
+.datas-rotina {
+  color: var(--texto-secundario);
   font-size: 12px;
 }
 
-.routine-info {
+.info-rotina {
   padding: 12px 16px;
   display: flex;
   gap: 16px;
   font-size: 13px;
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--border-color);
+  color: var(--texto-secundario);
+  border-bottom: 1px solid var(--cor-borda);
 }
 
-.routine-actions {
+.acoes-rotina {
   display: flex;
   gap: 8px;
   padding: 12px 16px;
 }
 
-.btn-action {
+.botao-acao {
   flex: 1;
   padding: 8px 12px;
-  border: 1px solid var(--border-color);
-  background: var(--bg-card);
-  color: var(--text-primary);
+  border: 1px solid var(--cor-borda);
+  background: var(--fundo-cartao);
+  color: var(--texto-primario);
   border-radius: 6px;
   cursor: pointer;
   font-size: 12px;
@@ -242,33 +216,33 @@
   white-space: nowrap;
 }
 
-.btn-action:hover {
-  background: var(--bg-hover);
+.botao-acao:hover {
+  background: var(--fundo-hover);
 }
 
-.btn-delete {
-  color: var(--color-danger);
-  border-color: var(--color-danger);
+.botao-deletar {
+  color: var(--cor-perigo);
+  border-color: var(--cor-perigo);
 }
-.btn-delete:hover {
-  background: var(--color-danger);
+.botao-deletar:hover {
+  background: var(--cor-perigo);
   color: white;
 }
 
-.empty-state {
+.estado-vazio {
   grid-column: 1 / -1;
   text-align: center;
   padding: 60px 20px;
-  background: var(--bg-card);
+  background: var(--fundo-cartao);
   border-radius: 12px;
-  border: 2px dashed var(--border-color);
+  border: 2px dashed var(--cor-borda);
 }
 
-.empty-state h3 { color: var(--text-primary); }
-.empty-state p { color: var(--text-secondary); }
+.estado-vazio h3 { color: var(--texto-primario); }
+.estado-vazio p { color: var(--texto-secundario); }
 
 /* notificação de Sincronização */
-.sync-status {
+.status-sincronizacao {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -278,38 +252,38 @@
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 1000;
-  animation: slideIn 0.3s ease-out;
+  animation: deslizarEntrada 0.3s ease-out;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 /* Tipos de Status */
-.sync-loading {
+.sinc-carregando {
   background-color: #3b82f6;
 }
 
-.sync-success {
-  background-color: #10b981;
+.sinc-sucesso {
+  background-color: var(--cor-sucesso);
 }
 
-.sync-error {
-  background-color: #ef4444; 
+.sinc-erro {
+  background-color: var(--cor-perigo); 
 }
 
-@keyframes slideIn {
+@keyframes deslizarEntrada {
   from { transform: translateY(100%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 /* Botão Tema */
-.btn-theme {
+.botao-tema {
   background: transparent;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--cor-borda);
   font-size: 1.2rem;
   padding: 8px 12px;
   cursor: pointer;
-  color: var(--text-primary);
+  color: var(--texto-primario);
   border-radius: 6px;
   transition: all 0.2s ease;
   display: flex;
@@ -317,13 +291,13 @@
   justify-content: center;
 }
 
-.btn-theme:hover {
-  background-color: var(--bg-hover);
-  border-color: var(--primary);
+.botao-tema:hover {
+  background-color: var(--fundo-hover);
+  border-color: var(--cor-primaria);
 }
 
 /* Responsivo */
 @media (max-width: 640px) {
-  .routine-header .header-content { flex-direction: column; gap: 15px; }
-  .routines-list { grid-template-columns: 1fr; }
+  .cabecalho-rotina .conteudo-cabecalho { flex-direction: column; gap: 15px; }
+  .lista-rotinas { grid-template-columns: 1fr; }
 }

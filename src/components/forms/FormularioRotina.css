@@ -3,37 +3,37 @@
    ========================================================================== */
 
 /* --- 1. Container Principal e Card --- */
-.routine-form-container {
+.container-formulario-rotina {
   min-height: 100vh;
-  background-color: var(--bg-page); /* Corresponde ao tema (claro/escuro) */
+  background-color: var(--fundo-pagina); /* Corresponde ao tema (claro/escuro) */
   padding: 40px 20px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-.routine-form-card {
-  background: var(--bg-card);
+.cartao-formulario-rotina {
+  background: var(--fundo-cartao);
   border-radius: 12px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--sombra-g);
   max-width: 800px;
   width: 100%;
   padding: 40px;
   margin-top: 20px;
-  border: 1px solid var(--border-color); /* Borda sutil para modo escuro */
+  border: 1px solid var(--cor-borda); /* Borda sutil para modo escuro */
 }
 
 /* Títulos */
-.routine-form-card h2 {
-  color: var(--text-primary);
+.cartao-formulario-rotina h2 {
+  color: var(--texto-primario);
   margin-bottom: 30px;
   font-size: 28px;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--cor-borda);
   padding-bottom: 15px;
 }
 
-.routine-form-card h3 {
-  color: var(--text-primary);
+.cartao-formulario-rotina h3 {
+  color: var(--texto-primario);
   font-size: 18px;
   margin-bottom: 20px;
   display: flex;
@@ -41,99 +41,99 @@
   gap: 8px; /* Espaço entre ícone e texto */
 }
 
-.routine-form-card h4 {
-  color: var(--text-primary);
+.cartao-formulario-rotina h4 {
+  color: var(--texto-primario);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 /* --- 2. Layout de Seções e Formulário --- */
-.form-section {
+.secao-formulario {
   margin-bottom: 35px;
   padding-bottom: 25px;
-  border-bottom: 1px dashed var(--border-color);
+  border-bottom: 1px dashed var(--cor-borda);
 }
 
-.form-section:last-child {
+.secao-formulario:last-child {
   border-bottom: none;
 }
 
-.form-row {
+.linha-formulario {
   display: flex;
   gap: 20px;
   margin-bottom: 15px;
 }
 
-.form-group {
+.grupo-formulario {
   margin-bottom: 15px;
   flex: 1; /* Faz os inputs ocuparem espaço igual na row */
 }
 
-.form-group label {
+.grupo-formulario label {
   display: block;
-  color: var(--text-primary);
+  color: var(--texto-primario);
   margin-bottom: 8px;
   font-weight: 500;
   font-size: 0.95rem;
 }
 
 /* --- 3. Estilização dos Inputs --- */
-.form-group input,
-.form-group select,
-.form-group textarea {
+.grupo-formulario input,
+.grupo-formulario select,
+.grupo-formulario textarea {
   width: 100%;
   padding: 12px;
-  background: var(--bg-input);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  background: var(--fundo-entrada);
+  color: var(--texto-primario);
+  border: 1px solid var(--cor-borda);
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.2s ease-in-out;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+.grupo-formulario input:focus,
+.grupo-formulario select:focus,
+.grupo-formulario textarea:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px var(--borda-foco);
 }
 
 /* --- 4. Seletor de Dias (Checkboxes Bonitos) --- */
-.days-selector {
+.seletor-dias {
   margin: 20px 0;
 }
 
-.days-selector label {
+.seletor-dias label {
   display: block;
-  color: var(--text-primary);
+  color: var(--texto-primario);
   margin-bottom: 10px;
   font-weight: 500;
 }
 
-.days-grid {
+.grade-dias {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.day-checkbox {
+.checkbox-dia {
   position: relative;
   cursor: pointer;
 }
 
 /* Esconde o checkbox original */
-.day-checkbox input[type="checkbox"] {
+.checkbox-dia input[type="checkbox"] {
   display: none; 
 }
 
 /* O visual do botão do dia */
-.day-checkbox span {
+.checkbox-dia span {
   display: inline-block;
-  background: var(--bg-input);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
+  background: var(--fundo-entrada);
+  border: 1px solid var(--cor-borda);
+  color: var(--texto-secundario);
   padding: 8px 16px;
   border-radius: 20px; /* Arredondado */
   font-size: 0.9rem;
@@ -141,35 +141,35 @@
   user-select: none;
 }
 
-.day-checkbox:hover span {
-  border-color: var(--primary);
-  background: var(--bg-hover);
+.checkbox-dia:hover span {
+  border-color: var(--cor-primaria);
+  background: var(--fundo-hover);
 }
 
 /* Estado Selecionado */
-.day-checkbox input:checked + span {
-  background-color: var(--primary);
+.checkbox-dia input:checked + span {
+  background-color: var(--cor-primaria);
   color: white;
-  border-color: var(--primary);
+  border-color: var(--cor-primaria);
   font-weight: 600;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 /* --- 5. Lista de Tarefas (Correção do Bug Visual) --- */
-.tasks-list {
+.lista-tarefas {
   margin-top: 30px;
-  background: var(--bg-page); /* Fundo sutil atrás da lista */
+  background: var(--fundo-pagina); /* Fundo sutil atrás da lista */
   padding: 20px;
   border-radius: 8px;
 }
 
-.task-item {
-  background: var(--bg-card);
-  border-left: 5px solid var(--primary);
+.item-tarefa {
+  background: var(--fundo-cartao);
+  border-left: 5px solid var(--cor-primaria);
   padding: 15px 20px;
   border-radius: 6px;
   margin-bottom: 12px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--sombra-p);
   
   /* Flexbox para alinhar texto e lixeira */
   display: flex; 
@@ -178,54 +178,54 @@
   transition: transform 0.2s;
 }
 
-.task-item:hover {
+.item-tarefa:hover {
   transform: translateX(4px);
 }
 
-.task-info {
+.info-tarefa {
   display: flex;
   flex-direction: column;
   gap: 6px;
   flex: 1; /* Ocupa todo espaço disponível */
 }
 
-.task-info strong {
-  color: var(--text-primary);
+.info-tarefa strong {
+  color: var(--texto-primario);
   font-size: 1.1rem;
 }
 
 /* Ícones pequenos dentro da tarefa (Relógio e Calendário) */
-.task-time, .task-days {
-  color: var(--text-secondary);
+.tempo-tarefa, .dias-tarefa {
+  color: var(--texto-secundario);
   font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.task-description {
-  color: var(--text-secondary);
+.descricao-tarefa {
+  color: var(--texto-secundario);
   font-size: 0.9rem;
   font-style: italic;
   margin-top: 4px;
 }
 
 /* Resumo (Total de horas) */
-.task-summary {
+.resumo-tarefa {
   margin-top: 20px;
   text-align: right;
-  color: var(--text-primary);
+  color: var(--texto-primario);
   font-size: 1.1rem;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--cor-borda);
   padding-top: 10px;
 }
 
 /* --- 6. Botões (Estilos Profissionais) --- */
 
 /* Botão Adicionar Tarefa (Azul/Primary) */
-.btn-add-task {
+.botao-adicionar-tarefa {
   width: 100%; /* Botão largo para ficar fácil de clicar */
-  background-color: var(--primary);
+  background-color: var(--cor-primaria);
   color: white;
   border: none;
   padding: 12px;
@@ -241,15 +241,15 @@
   margin-top: 15px;
 }
 
-.btn-add-task:hover {
-  background-color: var(--primary-hover);
+.botao-adicionar-tarefa:hover {
+  background-color: var(--cor-primaria-hover);
 }
 
 /* Botão Remover Tarefa */
-.btn-remove-task {
+.botao-remover-tarefa {
   background-color: transparent;
-  color: var(--text-secondary); 
-  border: 1px solid var(--border-color);
+  color: var(--texto-secundario); 
+  border: 1px solid var(--cor-borda);
   width: 40px;
   height: 40px;
   border-radius: 8px;
@@ -261,34 +261,34 @@
   margin-left: 15px;
 }
 
-.btn-remove-task svg {
+.botao-remover-tarefa svg {
   width: 18px !important;  /* Força largura */
   height: 18px !important; /* Força altura */
   min-width: 18px;         /* Impede que o flexbox esmague o ícone */
 }
 
 /* Hover: Fundo vermelho claro e ícone vermelho vivo */
-.btn-remove-task:hover {
+.botao-remover-tarefa:hover {
   background-color: rgba(239, 68, 68, 0.15); 
-  color: #ef4444;
-  border-color: #ef4444;
+  color: var(--cor-perigo);
+  border-color: var(--cor-perigo);
 }
 
 /* Área de Ações do Formulário (Rodapé) */
-.form-actions {
+.acoes-formulario {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 40px;
   padding-top: 20px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--cor-borda);
 }
 
 /* Botão Preview (Outline) */
-.btn-preview {
+.botao-visualizar {
   background: transparent;
-  border: 2px solid var(--border-color);
-  color: var(--text-primary);
+  border: 2px solid var(--cor-borda);
+  color: var(--texto-primario);
   padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
@@ -299,19 +299,19 @@
   transition: all 0.3s;
 }
 
-.btn-preview:hover:not(:disabled) {
-  border-color: var(--primary);
-  color: var(--primary);
+.botao-visualizar:hover:not(:disabled) {
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
 }
 
-.btn-preview:disabled {
+.botao-visualizar:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 /* Botão Salvar (Verde/Destaque) */
-.btn-save-routine {
-  background-color: #10b981; /* Verde esmeralda */
+.botao-salvar-rotina {
+  background-color: var(--cor-sucesso); /* Verde esmeralda */
   color: white;
   border: none;
   padding: 14px 32px;
@@ -326,101 +326,101 @@
   transition: all 0.3s;
 }
 
-.btn-save-routine:hover {
-  background-color: #059669; /* Verde mais escuro */
+.botao-salvar-rotina:hover {
+  filter: brightness(0.9);
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(16, 185, 129, 0.3);
 }
 
 /* --- 7. Mensagens de Erro e Aviso --- */
-.form-errors, .form-warnings {
+.erros-formulario, .avisos-formulario {
   margin-bottom: 20px;
 }
 
-.error-message {
+.mensagem-erro {
   background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  color: var(--cor-perigo);
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 8px;
-  border: 1px solid #ef4444;
+  border: 1px solid var(--cor-perigo);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.warning-message {
+.mensagem-aviso {
   background-color: rgba(245, 158, 11, 0.1);
-  color: #d97706;
+  color: var(--cor-aviso);
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 8px;
-  border: 1px solid #f59e0b;
+  border: 1px solid var(--cor-aviso);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 /* --- 8. Timeline Preview --- */
-.timeline-preview {
+.timeline-previsualizacao {
   margin-top: 30px;
   padding: 20px;
-  background: var(--bg-page);
+  background: var(--fundo-pagina);
   border-radius: 8px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--cor-borda);
 }
 
-.day-timeline {
+.dia-timeline {
   margin-bottom: 15px;
 }
 
-.day-timeline h5 {
-  color: var(--text-secondary);
+.dia-timeline h5 {
+  color: var(--texto-secundario);
   font-size: 0.85rem;
   margin-bottom: 8px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--cor-borda);
 }
 
-.timeline-item {
+.item-timeline {
   display: flex;
   align-items: center;
   margin-bottom: 6px;
   font-size: 0.9rem;
 }
 
-.timeline-time {
+.tempo-timeline {
   width: 100px;
-  color: var(--text-secondary);
+  color: var(--texto-secundario);
   font-family: monospace;
 }
 
-.timeline-task {
+.tarefa-timeline {
   flex: 1;
-  background: var(--bg-card);
-  color: var(--text-primary);
+  background: var(--fundo-cartao);
+  color: var(--texto-primario);
   padding: 4px 8px;
   border-radius: 4px;
   border-left: 3px solid #ccc; /* Cor padrão, sobrescrita inline */
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--sombra-p);
 }
 
 /* --- 9. Responsivo --- */
 @media (max-width: 768px) {
-  .form-row {
+  .linha-formulario {
     flex-direction: column;
     gap: 0;
   }
   
-  .routine-form-card {
+  .cartao-formulario-rotina {
     padding: 20px;
   }
   
-  .form-actions {
+  .acoes-formulario {
     flex-direction: column-reverse; /* Salvar em cima no mobile */
     gap: 15px;
   }
   
-  .btn-save-routine, .btn-preview {
+  .botao-salvar-rotina, .botao-visualizar {
     width: 100%;
     justify-content: center;
   }

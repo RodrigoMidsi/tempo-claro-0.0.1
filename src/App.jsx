@@ -1,26 +1,42 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Roteador, Routes as Rotas, Route as Rota, Navigate as Navegar } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { LoginPage } from './pages/login/LoginPage';
-import { DashboardPage } from './pages/dashboard/DashboardPage';
-import { RoutinePage } from './pages/routine/RoutinePage';
-import { ProtectedRoute } from './components';
+import { PaginaLogin } from './pages/login/PaginaLogin'; // CORREÇÃO: Importar PaginaLogin
+import { PaginaPainel } from './pages/dashboard/PaginaPainel'; // CORREÇÃO: Importar PaginaPainel
+import { PaginaRotina } from './pages/routine/PaginaRotina'; // CORREÇÃO: Importar PaginaRotina
+import { RotaProtegida } from './components'; // Pega do index.js corrigido acima
 import './App.css';
 
 function App() {
   return (
-
-    // @audit-ok - 5.9 Navegação funcional e modular: Router rederizador de rotas
-    <Router>
+    <Roteador>
       <AuthProvider>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/dashboard" element={<ProtectedRoute> <DashboardPage /> </ProtectedRoute>} />
-          <Route path="/routine" element={<ProtectedRoute> <RoutinePage /> </ProtectedRoute>} />
-          <Route path="/" element={<Navigate to="/login" replace />} />
-        </Routes>
+        <Rotas>
+          {/* Rotas apontando para os componentes renomeados */}
+          <Rota path="/login" element={<PaginaLogin />} />
+          
+          <Rota 
+            path="/dashboard" 
+            element={
+              <RotaProtegida> 
+                <PaginaPainel /> 
+              </RotaProtegida>
+            } 
+          />
+          
+          <Rota 
+            path="/routine" 
+            element={
+              <RotaProtegida> 
+                <PaginaRotina /> 
+              </RotaProtegida>
+            } 
+          />
+          
+          <Rota path="/" element={<Navegar to="/login" replace />} />
+        </Rotas>
       </AuthProvider>
-    </Router>
+    </Roteador>
   );
 }
 

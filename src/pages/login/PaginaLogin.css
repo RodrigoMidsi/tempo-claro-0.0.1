@@ -1,6 +1,6 @@
 /* LOGIN PAGE.CSS */
 
-.login-container {
+.container-login {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,45 +10,45 @@
 }
 
 /* Card de Login */
-.login-card {
-  background: var(--bg-card);      /* Adapta ao main */
-  color: var(--text-primary);      /* Adapta ao main */
+.cartao-login {
+  background: var(--fundo-cartao);      /* Adapta ao main */
+  color: var(--texto-primario);      /* Adapta ao main */
   border-radius: 12px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--sombra-g);
   width: 100%;
   max-width: 420px;
   padding: 40px 30px;
-  animation: slideUp 0.5s ease-out;
+  animation: deslizarParaCima 0.5s ease-out;
 }
 
-@keyframes slideUp {
+@keyframes deslizarParaCima {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* Cabeçalho */
-.login-header {
+.cabecalho-login {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.login-header h1 {
+.cabecalho-login h1 {
   margin: 0 0 8px 0;
-  color: var(--text-primary);
+  color: var(--texto-primario);
   font-size: 28px;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
 
-.login-header p {
+.cabecalho-login p {
   margin: 0;
-  color: var(--text-secondary);
+  color: var(--texto-secundario);
   font-size: 14px;
   font-weight: 500;
 }
 
 /* Área Central */
-.texto-login {
+.area-conteudo {
   margin: 30px 0;
   display: flex;
   flex-direction: column;
@@ -57,27 +57,27 @@
 }
 
 .descricao-login {
-  color: var(--text-secondary);
+  color: var(--texto-secundario);
   font-size: 14px;
   text-align: center;
   margin-bottom: 10px;
   line-height: 1.5;
 }
 
-/* Botão Google */
-.google-login-button-wrapper {
+/* Botão Google - Classes genéricas removidas se não usadas em JS específico, mantendo estrutura */
+.wrapper-botao-google {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.custom-google-btn {
+.botao-google-personalizado {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  background-color: var(--fundo-cartao);
+  color: var(--texto-primario);
+  border: 1px solid var(--cor-borda);
   border-radius: 8px;
   padding: 12px 24px;
   font-family: inherit;
@@ -85,53 +85,53 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--sombra-p);
   width: 100%;
 }
 
-.custom-google-btn:hover {
-  background-color: var(--bg-hover);
+.botao-google-personalizado:hover {
+  background-color: var(--fundo-hover);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--sombra-m);
 }
 
-.google-icon {
+.icone-google {
   width: 24px;
   height: 24px;
   margin-right: 12px;
 }
 
 /* Rodapé */
-.footer-login {
+.rodape-login {
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--cor-borda);
 }
 
 .termos-login {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: var(--texto-secundario);
   text-align: center;
   margin: 0;
   line-height: 1.6;
 }
 
 .termos-login a {
-  color: var(--primary);
+  color: var(--cor-primaria);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .termos-login a:hover {
-  color: var(--secondary);
+  color: var(--cor-secundaria);
   text-decoration: underline;
 }
 
 /* Responsividade */
 @media (max-width: 640px) {
-  .login-container { padding: 16px; }
-  .login-card { padding: 30px 20px; }
-  .login-header h1 { font-size: 24px; }
+  .container-login { padding: 16px; }
+  .cartao-login { padding: 30px 20px; }
+  .cabecalho-login h1 { font-size: 24px; }
   .descricao-login { font-size: 13px; }
 }

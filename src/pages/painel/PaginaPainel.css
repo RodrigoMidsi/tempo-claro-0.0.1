@@ -1,0 +1,192 @@
+/* ==========================================================================
+   DASHBOARD PAGE.CSS - Painel de controle e estatísticas
+   ========================================================================== */
+
+.container-painel {
+  min-height: 100vh;
+  background-color: var(--fundo-pagina);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------------------------------
+   HEADER FIXO (Padronizado com RoutinePage)
+   ------------------------------------------------------------------------ */
+.cabecalho-painel {
+  background: var(--fundo-cartao); /* Fundo sólido (Branco ou Escuro) */
+  border-bottom: 1px solid var(--cor-borda);
+  box-shadow: var(--sombra-p);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.conteudo-cabecalho {
+  max-width: 1400px; /* Largura igual à da routine page */
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cabecalho-painel h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--texto-primario); /* Cor do texto adaptável */
+}
+
+/* Área de Ações do Header */
+.acoes-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Botão de Navegação do Header */
+.botao-nav {
+  background: var(--fundo-pagina);
+  color: var(--texto-primario);
+  border: 1px solid var(--cor-borda);
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaço para ícone */
+}
+
+.botao-nav:hover {
+  background: var(--fundo-hover);
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+/* User Info (Sem efeito Glass, estilo limpo) */
+.info-usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-usuario {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--cor-borda);
+}
+
+.detalhes-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinha nome e botão à direita */
+}
+
+.nome-usuario {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto-primario);
+}
+
+.botao-sair {
+  background: var(--cor-perigo);
+  color: white;
+  border: none;
+  padding: 8px 16px; /* Ajustado para padrão */
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaço para ícone */
+}
+
+.botao-sair:hover {
+  filter: brightness(0.9);
+}
+
+/* ------------------------------------------------------------------------
+   ÁREA PRINCIPAL
+   ------------------------------------------------------------------------ */
+.principal-painel {
+  flex: 1;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+/* Estatísticas */
+.grade-estatisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.cartao-estatistica {
+  background: var(--fundo-cartao);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: var(--sombra-p);
+  border-top: 4px solid;
+  transition: transform 0.3s;
+}
+
+.cartao-estatistica:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-m);
+}
+
+/* Cores específicas dos cards */
+.estatistica-total { border-top-color: #667eea; }
+.estatistica-concluida { border-top-color: #10b981; }
+.estatistica-progresso { border-top-color: #f97316; }
+.estatistica-pendente { border-top-color: #ef4444; }
+
+.cabecalho-estatistica {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.cabecalho-estatistica h3 {
+  color: var(--texto-secundario);
+  font-size: 13px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.icone-estatistica {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  color: var(--cor-primaria); /* Cor padrão do ícone */
+}
+
+.valor-estatistica {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--texto-primario);
+  margin-bottom: 8px;
+}
+
+.descricao-estatistica {
+  color: var(--texto-secundario);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .conteudo-cabecalho { flex-direction: column; gap: 15px; }
+  .acoes-cabecalho { width: 100%; justify-content: space-between; }
+}
