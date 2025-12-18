@@ -138,30 +138,32 @@ export const googleCalendarManager = {
 generateEventDates(startDate, endDate, daysOfWeek) {
     const dates = [];
     
-    // CORREÇÃO AQUI: Adicionamos 'T12:00:00' para criar a data ao meio-dia local.
-    // Isso impede que o fuso horário (UTC-3) jogue a data para o dia anterior.
-    const start = new Date(startDate + 'T12:00:00');
-    const end = new Date(endDate + 'T12:00:00');
+    // TRUQUE: Adiciona 'T00:00:00Z' para forçar a data a ser interpretada como UTC (Zero Timezone).
+    // Assim, "2025-12-05" vira exatamente "2025-12-05T00:00:00.000Z"
+    // e não sofre subtração de fuso horário (-3h).
+    const start = new Date(`${startDate}T00:00:00Z`);
+    const end = new Date(`${endDate}T00:00:00Z`);
 
     const dayNumberMap = {
       'domingo': 0, 'segunda': 1, 'terça': 2, 'quarta': 3, 
       'quinta': 4, 'sexta': 5, 'sábado': 6
     };
 
-    // Mapeia os nomes dos dias para números (0-6)
     const selectedDayNumbers = daysOfWeek.map(day => dayNumberMap[day.toLowerCase()]);
 
     let current = new Date(start);
 
     while (current <= end) {
-      const dayOfWeek = current.getDay();
+      // getUTCDay() garante que pegamos o dia da semana da data UTC, sem converter para local
+      const dayOfWeek = current.getUTCDay();
 
-      // Se o dia da semana atual estiver na lista, adiciona
       if (selectedDayNumbers.includes(dayOfWeek)) {
+        // toISOString() sempre retorna em UTC, então "2025-12-05T00:00..." vira "2025-12-05"
         dates.push(current.toISOString().split('T')[0]);
       }
       
-      current.setDate(current.getDate() + 1);
+      // Avança um dia em UTC
+      current.setUTCDate(current.getUTCDate() + 1);
     }
 
     return dates;
