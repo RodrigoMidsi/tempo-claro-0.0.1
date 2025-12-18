@@ -3,11 +3,10 @@ import { FaMoon, FaSun, FaChartBar, FaSignOutAlt, FaPlus, FaEdit, FaCalendarChec
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext'; 
-import { gerenciadorRotinas } from '../../manager/routineManager';
-import { gerenciadorCalendar } from '../../manager/googleCalendarManager';
-// CORREÇÃO: Certifique-se que o index.js exporta 'FormularioRotina' corretamente
+import { gerenciadorRotinas } from '../../manager/gerenciadorRotinas';
+import { gerenciadorCalendar } from '../../manager/gerenciadorCalendar';
 import { FormularioRotina } from '../../components'; 
-import './RoutinePage.css';
+import './PaginaRotina.css';
 
 export const PaginaRotina = () => {
   const { user, accessToken, capturaLogout } = useContext(AuthContext);
