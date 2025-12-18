@@ -1,15 +1,25 @@
-/* ==========================================================================
-   ROUTINE PAGE.CSS - Listagem e gerenciamento de rotinas
-   ========================================================================== */
-
+/* Página de Rotina */
 .routine-page-container {
   min-height: 100vh;
   background-color: var(--bg-page);
 }
 
-/* ------------------------------------------------------------------------
-   HEADER FIXO
-   ------------------------------------------------------------------------ */
+/* Estilização do ícone */
+.empty-icon {
+  color: var(--text-secondary); 
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  opacity: 0.5; 
+  font-size: 48px;
+}
+
+/* para o wrapper do form não quebre o layout */
+.form-section-wrapper {
+  width: 100%;
+}
+
+/*  header */
 .routine-header {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border-color);
@@ -94,9 +104,7 @@
   filter: brightness(0.9);
 }
 
-/* ------------------------------------------------------------------------
-   ÁREA PRINCIPAL
-   ------------------------------------------------------------------------ */
+/*  Área principal */
 .routine-main {
   max-width: 1400px;
   margin: 0 auto;
@@ -169,9 +177,7 @@
   color: white;
 }
 
-/* ------------------------------------------------------------------------
-   CARDS DE ROTINA
-   ------------------------------------------------------------------------ */
+/* cards de rotina */
 .routines-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -184,7 +190,7 @@
   box-shadow: var(--shadow-sm);
   overflow: hidden;
   transition: all 0.3s;
-  border-left: 5px solid; /* Cor definida inline pelo React */
+  border-left: 5px solid; 
 }
 
 .routine-card:hover {
@@ -249,7 +255,6 @@
   color: white;
 }
 
-/* Empty State */
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
@@ -295,6 +300,25 @@
 @keyframes slideIn {
   from { transform: translateY(100%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+/* Botão Tema */
+.btn-theme {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  font-size: 1.2rem;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-theme:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--primary);
 }
 
 /* Responsivo */

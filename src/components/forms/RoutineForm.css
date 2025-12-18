@@ -1,10 +1,8 @@
-/* ==========================================================================
-   ROUTINE FORM.CSS - Formulário de criação e edição
-   ========================================================================== */
+/* Formulário de criação e edição */
 
 .routine-form-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: var(--bg-page);
   padding: 40px 20px;
   display: flex;
   justify-content: center;
@@ -25,6 +23,19 @@
   color: var(--text-primary);
   margin-bottom: 30px;
   font-size: 28px;
+}
+
+/* Alinhamento dos ícones */
+h3 svg, h4 svg, .info-item svg, .warning-message svg, .error-message svg {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.btn-add-task, .btn-save-routine, .btn-preview, .btn-remove-task {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 /* Seções e Inputs */

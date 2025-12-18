@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { FaPlus, FaTimes, FaSave, FaEye, FaEyeSlash, FaExclamationCircle, FaExclamationTriangle, FaClipboardList, FaTasks, FaClock, FaCalendarAlt, FaTrash } from 'react-icons/fa';
 import { routineManager } from '../../service/routineManager';
 import './RoutineForm.css';
 
 const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
-  const [routine, setRoutine] = useState(routineManager.criaRotinaModel());
+  const [routine, setRoutine] = useState(
+    editingRoutine || routineManager.criaRotinaModel()
+  );
   const [currentTask, setCurrentTask] = useState(routineManager.criaTarefaModel());
   const [errors, setErrors] = useState([]);
   const [conflicts, setConflicts] = useState([]);
   const [showPreview, setShowPreview] = useState(false);
-
-  // Preencher se está editando
-  useEffect(() => {
-    if (editingRoutine) {
-      setRoutine(editingRoutine);
-    }
-  }, [editingRoutine]);
 
   const handleRoutineChange = (e) => {
     const { name, value } = e.target;
@@ -121,13 +117,14 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
   return (
     <div className="routine-form-container">
       <div className="routine-form-card">
-        <h2>{editingRoutine ? '✏️ Editar Rotina' : '➕ Nova Rotina'}</h2>
-
+        <h2>{editingRoutine ? 'Editar Rotina' : 'Nova Rotina'}</h2>
         {errors.length > 0 && (
           <div className="form-errors">
             {errors.map((error, idx) => (
-              <div key={idx} className="error-message">
-                ❌ {error}
+              <div key={idx} 
+                className="error-message">
+                <FaExclamationCircle /> 
+                {error}
               </div>
             ))}
           </div>
@@ -137,7 +134,7 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
           <div className="form-warnings">
             {conflicts.map((conflict, idx) => (
               <div key={idx} className="warning-message">
-                ⚠️ {conflict.message}
+                <FaExclamationTriangle /> {conflict.message}
               </div>
             ))}
           </div>
@@ -146,8 +143,9 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
         <form onSubmit={handleSubmit}>
           {/* Seção de Informações da Rotina */}
           <div className="form-section">
-            <h3>📋 Informações da Rotina</h3>
-
+            <h3>
+              <FaClipboardList /> Informações da Rotina
+            </h3>
             <div className="form-group">
               <label htmlFor="name">Nome da Rotina *</label>
               <input
@@ -229,8 +227,9 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
 
           {/* Seção de Tarefas */}
           <div className="form-section">
-            <h3>📌 Tarefas da Rotina</h3>
-
+            <h3>
+              <FaTasks /> Tarefas da Rotina
+            </h3>
             <div className="task-input-group">
               <div className="form-group">
                 <label htmlFor="taskTitle">Título da Tarefa *</label>
@@ -305,7 +304,7 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
                 className="btn-add-task"
                 onClick={addTask}
               >
-                ➕ Adicionar Tarefa
+                <FaPlus /> Adicionar Tarefa
               </button>
             </div>
 
@@ -320,10 +319,11 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
                     <div className="task-info">
                       <strong>{task.title}</strong>
                       <span className="task-time">
-                        🕐 {task.startTime} - {task.endTime}
+                        <FaClock /> 
+                        {task.startTime} - {task.endTime}
                       </span>
                       <span className="task-days">
-                        📅 {task.daysOfWeek.map(d => daysLabels[d]).join(', ')}
+                        <FaCalendarAlt /> {task.daysOfWeek.map(d => daysLabels[d]).join(', ')}
                       </span>
                       {task.description && (
                         <p className="task-description">{task.description}</p>
@@ -334,7 +334,7 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
                       className="btn-remove-task"
                       onClick={() => removeTask(task.id)}
                     >
-                      ✕
+                      <FaTrash />
                     </button>
                   </div>
                 ))
@@ -343,7 +343,7 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
 
             {routine.tasks.length > 0 && (
               <div className="task-summary">
-                <p>⏱️ Duração Total: <strong>{totalDuration}</strong></p>
+                <p><FaClock /> Duração Total: <strong>{totalDuration}</strong></p>
               </div>
             )}
           </div>
@@ -356,10 +356,11 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
               onClick={() => setShowPreview(!showPreview)}
               disabled={routine.tasks.length === 0}
             >
-              👁️ {showPreview ? 'Fechar' : 'Visualizar'} Timeline
+              {showPreview ? <FaEyeSlash /> : <FaEye />} 
+              {showPreview ? 'Fechar' : 'Visualizar'} Timeline
             </button>
             <button type="submit" className="btn-save-routine">
-              💾 Salvar Rotina
+              <FaSave /> Salvar Rotina
             </button>
           </div>
         </form>
@@ -367,7 +368,7 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
         {/* Preview Timeline */}
         {showPreview && routine.tasks.length > 0 && (
           <div className="timeline-preview">
-            <h4>⏰ Preview da Timeline</h4>
+            <h4><FaClock /> Preview da Timeline</h4>
             {daysOfWeek.map(day => {
               const tasksForDay = routine.tasks.filter(t =>
                 t.daysOfWeek.includes(day)
