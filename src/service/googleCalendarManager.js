@@ -137,12 +137,11 @@ export const googleCalendarManager = {
 
 generateEventDates(startDate, endDate, daysOfWeek) {
     const dates = [];
-    const start = new Date(startDate);
-    const end = new Date(endDate);
     
-    // Ajuste de fuso
-    start.setHours(12,0,0,0);
-    end.setHours(12,0,0,0);
+    // CORREÇÃO AQUI: Adicionamos 'T12:00:00' para criar a data ao meio-dia local.
+    // Isso impede que o fuso horário (UTC-3) jogue a data para o dia anterior.
+    const start = new Date(startDate + 'T12:00:00');
+    const end = new Date(endDate + 'T12:00:00');
 
     const dayNumberMap = {
       'domingo': 0, 'segunda': 1, 'terça': 2, 'quarta': 3, 
