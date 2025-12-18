@@ -248,7 +248,7 @@
 /* Botão Remover Tarefa */
 .btn-remove-task {
   background-color: transparent;
-  color: var(--text-secondary);
+  color: var(--text-secondary); 
   border: 1px solid var(--border-color);
   width: 40px;
   height: 40px;
@@ -262,13 +262,14 @@
 }
 
 .btn-remove-task svg {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
+  width: 18px !important;  /* Força largura */
+  height: 18px !important; /* Força altura */
+  min-width: 18px;         /* Impede que o flexbox esmague o ícone */
 }
 
+/* Hover: Fundo vermelho claro e ícone vermelho vivo */
 .btn-remove-task:hover {
-  background-color: #fee2e2;
+  background-color: rgba(239, 68, 68, 0.15); 
   color: #ef4444;
   border-color: #ef4444;
 }
