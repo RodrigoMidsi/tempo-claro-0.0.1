@@ -329,13 +329,14 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
                         <p className="task-description">{task.description}</p>
                       )}
                     </div>
-                    <button
-                      type="button"
-                      className="btn-remove-task"
-                      onClick={() => removeTask(task.id)}
-                    >
-                      <FaTrash />
-                    </button>
+                      <button
+                        type="button"
+                        className="btn-remove-task"
+                        onClick={() => removeTask(task.id)}
+                        title="Remover tarefa"
+                      >
+                        <FaTrash />
+                      </button>
                   </div>
                 ))
               )}

@@ -245,7 +245,7 @@
   background-color: var(--primary-hover);
 }
 
-/* Botão Remover Tarefa (Quadrado Vermelho) */
+/* Botão Remover Tarefa */
 .btn-remove-task {
   background-color: transparent;
   color: var(--text-secondary);
@@ -258,12 +258,13 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
-  margin-left: 15px; /* Afasta do texto */
+  margin-left: 15px;
+    font-size: 16px;
 }
 
 .btn-remove-task:hover {
-  background-color: #fee2e2; /* Vermelho bem claro */
-  color: #ef4444; /* Vermelho forte */
+  background-color: #fee2e2;
+  color: #ef4444;
   border-color: #ef4444;
 }
 
