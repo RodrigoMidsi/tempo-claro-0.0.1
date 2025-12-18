@@ -105,7 +105,7 @@ src/
 
 │   ├── loginManager.js
 
-│   ├── dashboardManager.js
+│   ├── painelManager.js
 
 │   ├── routineManager.js (novo)
 

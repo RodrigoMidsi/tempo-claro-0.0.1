@@ -83,7 +83,7 @@ return (
               {theme === 'light' ? <FaMoon size={18} /> : <FaSun size={18} />}
             </button>
 
-            <button className="botao-dashboard" onClick={() => navegar('/dashboard')}> 
+            <button className="botao-painel" onClick={() => navegar('/painel')}> 
               <FaChartBar /> Dashboard  
             </button>
 

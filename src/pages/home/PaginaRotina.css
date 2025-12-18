@@ -52,7 +52,7 @@
   gap: 20px;
 }
 
-.botao-dashboard {
+.botao-painel {
   background: var(--fundo-pagina);
   color: var(--texto-primario);
   border: 1px solid var(--cor-borda);
@@ -63,7 +63,7 @@
   transition: all 0.3s;
 }
 
-.botao-dashboard:hover {
+.botao-painel:hover {
   background: var(--fundo-hover);
   border-color: var(--cor-primaria);
 }
