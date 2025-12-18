@@ -1,6 +1,4 @@
-/* ==========================================================================
-   DASHBOARD PAGE.CSS - Painel de controle e estatísticas
-   ========================================================================== */
+/* painel page */
 
 .container-painel {
   min-height: 100vh;
@@ -9,11 +7,8 @@
   flex-direction: column;
 }
 
-/* ------------------------------------------------------------------------
-   HEADER FIXO (Padronizado com RoutinePage)
-   ------------------------------------------------------------------------ */
 .cabecalho-painel {
-  background: var(--fundo-cartao); /* Fundo sólido (Branco ou Escuro) */
+  background: var(--fundo-cartao);
   border-bottom: 1px solid var(--cor-borda);
   box-shadow: var(--sombra-p);
   padding: 20px 0;
@@ -23,7 +18,7 @@
 }
 
 .conteudo-cabecalho {
-  max-width: 1400px; /* Largura igual à da routine page */
+  max-width: 1400px; 
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
@@ -35,7 +30,7 @@
   margin: 0;
   font-size: 24px;
   font-weight: 700;
-  color: var(--texto-primario); /* Cor do texto adaptável */
+  color: var(--texto-primario);
 }
 
 /* Área de Ações do Header */
@@ -57,7 +52,7 @@
   transition: all 0.3s;
   display: flex;
   align-items: center;
-  gap: 8px; /* Espaço para ícone */
+  gap: 8px; 
 }
 
 .botao-nav:hover {
@@ -66,7 +61,7 @@
   color: var(--cor-primaria);
 }
 
-/* User Info (Sem efeito Glass, estilo limpo) */
+/* User Info */
 .info-usuario {
   display: flex;
   align-items: center;
@@ -84,7 +79,7 @@
 .detalhes-usuario {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Alinha nome e botão à direita */
+  align-items: flex-end;
 }
 
 .nome-usuario {
@@ -98,23 +93,20 @@
   background: var(--cor-perigo);
   color: white;
   border: none;
-  padding: 8px 16px; /* Ajustado para padrão */
+  padding: 8px 16px; 
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s;
   display: flex;
   align-items: center;
-  gap: 8px; /* Espaço para ícone */
+  gap: 8px; 
 }
 
 .botao-sair:hover {
   filter: brightness(0.9);
 }
 
-/* ------------------------------------------------------------------------
-   ÁREA PRINCIPAL
-   ------------------------------------------------------------------------ */
 .principal-painel {
   flex: 1;
   max-width: 1400px;
@@ -145,7 +137,6 @@
   box-shadow: var(--sombra-m);
 }
 
-/* Cores específicas dos cards */
 .estatistica-total { border-top-color: #667eea; }
 .estatistica-concluida { border-top-color: #10b981; }
 .estatistica-progresso { border-top-color: #f97316; }
@@ -169,7 +160,7 @@
   font-size: 1.2rem;
   display: flex;
   align-items: center;
-  color: var(--cor-primaria); /* Cor padrão do ícone */
+  color: var(--cor-primaria);
 }
 
 .valor-estatistica {

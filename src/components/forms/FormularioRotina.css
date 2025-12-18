@@ -1,11 +1,9 @@
-/* ==========================================================================
-   ROUTINE FORM.CSS - Estilos do Formulário (Remanufaturado)
-   ========================================================================== */
+/* pagina de rotina */
 
-/* --- 1. Container Principal e Card --- */
+/* Container Principal e card */
 .container-formulario-rotina {
   min-height: 100vh;
-  background-color: var(--fundo-pagina); /* Corresponde ao tema (claro/escuro) */
+  background-color: var(--fundo-pagina); 
   padding: 40px 20px;
   display: flex;
   justify-content: center;
@@ -20,7 +18,7 @@
   width: 100%;
   padding: 40px;
   margin-top: 20px;
-  border: 1px solid var(--cor-borda); /* Borda sutil para modo escuro */
+  border: 1px solid var(--cor-borda);
 }
 
 /* Títulos */
@@ -38,7 +36,7 @@
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-  gap: 8px; /* Espaço entre ícone e texto */
+  gap: 8px;
 }
 
 .cartao-formulario-rotina h4 {
@@ -48,7 +46,7 @@
   gap: 8px;
 }
 
-/* --- 2. Layout de Seções e Formulário --- */
+/* Layout e Formulário */
 .secao-formulario {
   margin-bottom: 35px;
   padding-bottom: 25px;
@@ -67,7 +65,7 @@
 
 .grupo-formulario {
   margin-bottom: 15px;
-  flex: 1; /* Faz os inputs ocuparem espaço igual na row */
+  flex: 1;
 }
 
 .grupo-formulario label {
@@ -78,7 +76,6 @@
   font-size: 0.95rem;
 }
 
-/* --- 3. Estilização dos Inputs --- */
 .grupo-formulario input,
 .grupo-formulario select,
 .grupo-formulario textarea {
@@ -100,7 +97,6 @@
   box-shadow: 0 0 0 3px var(--borda-foco);
 }
 
-/* --- 4. Seletor de Dias (Checkboxes Bonitos) --- */
 .seletor-dias {
   margin: 20px 0;
 }
@@ -123,19 +119,19 @@
   cursor: pointer;
 }
 
-/* Esconde o checkbox original */
+/* Esconder o checkbox */
 .checkbox-dia input[type="checkbox"] {
   display: none; 
 }
 
-/* O visual do botão do dia */
+/* botão do dia */
 .checkbox-dia span {
   display: inline-block;
   background: var(--fundo-entrada);
   border: 1px solid var(--cor-borda);
   color: var(--texto-secundario);
   padding: 8px 16px;
-  border-radius: 20px; /* Arredondado */
+  border-radius: 20px; 
   font-size: 0.9rem;
   transition: all 0.2s;
   user-select: none;
@@ -155,10 +151,10 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* --- 5. Lista de Tarefas (Correção do Bug Visual) --- */
+/* Lista de Tarefas */
 .lista-tarefas {
   margin-top: 30px;
-  background: var(--fundo-pagina); /* Fundo sutil atrás da lista */
+  background: var(--fundo-pagina); 
   padding: 20px;
   border-radius: 8px;
 }
@@ -186,7 +182,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  flex: 1; /* Ocupa todo espaço disponível */
+  flex: 1; 
 }
 
 .info-tarefa strong {
@@ -194,7 +190,7 @@
   font-size: 1.1rem;
 }
 
-/* Ícones pequenos dentro da tarefa (Relógio e Calendário) */
+/* Ícones pequenos dentro da tarefa */
 .tempo-tarefa, .dias-tarefa {
   color: var(--texto-secundario);
   font-size: 0.9rem;
@@ -210,7 +206,7 @@
   margin-top: 4px;
 }
 
-/* Resumo (Total de horas) */
+/* Resumo */
 .resumo-tarefa {
   margin-top: 20px;
   text-align: right;
@@ -220,11 +216,10 @@
   padding-top: 10px;
 }
 
-/* --- 6. Botões (Estilos Profissionais) --- */
+/* Botões*/
 
-/* Botão Adicionar Tarefa (Azul/Primary) */
 .botao-adicionar-tarefa {
-  width: 100%; /* Botão largo para ficar fácil de clicar */
+  width: 100%;
   background-color: var(--cor-primaria);
   color: white;
   border: none;
@@ -245,7 +240,6 @@
   background-color: var(--cor-primaria-hover);
 }
 
-/* Botão Remover Tarefa */
 .botao-remover-tarefa {
   background-color: transparent;
   color: var(--texto-secundario); 
@@ -267,14 +261,14 @@
   min-width: 18px;         /* Impede que o flexbox esmague o ícone */
 }
 
-/* Hover: Fundo vermelho claro e ícone vermelho vivo */
+/* Hover: Fundo vermelho para botão */
 .botao-remover-tarefa:hover {
   background-color: rgba(239, 68, 68, 0.15); 
   color: var(--cor-perigo);
   border-color: var(--cor-perigo);
 }
 
-/* Área de Ações do Formulário (Rodapé) */
+/* Ações do Formulário */
 .acoes-formulario {
   display: flex;
   justify-content: space-between;
@@ -284,7 +278,6 @@
   border-top: 1px solid var(--cor-borda);
 }
 
-/* Botão Preview (Outline) */
 .botao-visualizar {
   background: transparent;
   border: 2px solid var(--cor-borda);
@@ -309,9 +302,9 @@
   cursor: not-allowed;
 }
 
-/* Botão Salvar (Verde/Destaque) */
+/* Botão Salvar  */
 .botao-salvar-rotina {
-  background-color: var(--cor-sucesso); /* Verde esmeralda */
+  background-color: var(--cor-sucesso); 
   color: white;
   border: none;
   padding: 14px 32px;
@@ -332,7 +325,7 @@
   box-shadow: 0 6px 8px rgba(16, 185, 129, 0.3);
 }
 
-/* --- 7. Mensagens de Erro e Aviso --- */
+/* Erro */
 .erros-formulario, .avisos-formulario {
   margin-bottom: 20px;
 }
@@ -361,7 +354,6 @@
   gap: 8px;
 }
 
-/* --- 8. Timeline Preview --- */
 .timeline-previsualizacao {
   margin-top: 30px;
   padding: 20px;
@@ -400,11 +392,10 @@
   color: var(--texto-primario);
   padding: 4px 8px;
   border-radius: 4px;
-  border-left: 3px solid #ccc; /* Cor padrão, sobrescrita inline */
+  border-left: 3px solid #ccc; 
   box-shadow: var(--sombra-p);
 }
 
-/* --- 9. Responsivo --- */
 @media (max-width: 768px) {
   .linha-formulario {
     flex-direction: column;
@@ -416,7 +407,7 @@
   }
   
   .acoes-formulario {
-    flex-direction: column-reverse; /* Salvar em cima no mobile */
+    flex-direction: column-reverse; 
     gap: 15px;
   }
   

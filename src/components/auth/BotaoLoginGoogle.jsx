@@ -7,6 +7,7 @@ export const BotaoLoginGoogle = () => {
   return (
     <div className="wrapper-botao-google">
       <button 
+        // usa o context para chamar a função de login para esperar que o clienteToken.requestAccessToken() esteja pronto
         onClick={loginComGoogle}
         className="botao-google-personalizado"
       >

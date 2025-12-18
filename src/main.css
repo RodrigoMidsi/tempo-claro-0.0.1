@@ -1,9 +1,11 @@
 /* Estilos Globais e Definição de Temas */
 
 :root {
-  /* LIGHT MODE (DEFAULT)
+  /* light mode (default)
+  
      @audit-ok - 5.8 Design e Consistência */
-  /* Cores da Marca */
+
+  /* Cores de estilo */
 
   --cor-primaria: #667eea;
   --cor-primaria-hover: #5568d3;
@@ -11,16 +13,16 @@
   
   /* Cores de Fundo */
 
-  --fundo-pagina: #f9fafb;       /* Fundo geral da página */
-  --fundo-cartao: #ffffff;       /* Fundo de cards e modais */
-  --fundo-entrada: #ffffff;      /* Fundo de inputs */
-  --fundo-hover: #f3f4f6;      /* Fundo de itens ao passar o mouse */
-  
+  --fundo-pagina: #f9fafb;    
+  --fundo-cartao: #ffffff;    
+  --fundo-entrada: #ffffff;    
+  --fundo-hover: #f3f4f6;   
+
   /* Cores de Texto */
 
-  --texto-primario: #1f2937;  /* Títulos e texto forte */
-  --texto-secundario: #6b7280;/* Legendas e descrições */
-  --texto-inverso: #ffffff;  /* Texto sobre fundos escuros/botões */
+  --texto-primario: #1f2937; 
+  --texto-secundario: #6b7280;
+  --texto-inverso: #ffffff; 
   
   /* Bordas e Divisórias */
 
@@ -39,7 +41,7 @@
   --sombra-m: 0 4px 6px rgba(0, 0, 0, 0.1);
   --sombra-g: 0 10px 15px rgba(0, 0, 0, 0.1);
 
-  /* Tipografia Global */
+  /* texto Global */
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.5;
@@ -53,40 +55,39 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* DARK MODE
+/* dark mode
  @audit-info - Override de variáveis para Dark Mode */
 [data-theme="dark"] {
-  /* Cores da Marca */
-  --cor-primaria: #818cf8;       /* Mais claro para brilhar no escuro */
+  /* Cores de estilo */
+  --cor-primaria: #818cf8;     
   --cor-primaria-hover: #6366f1;
   --cor-secundaria: #a78bfa;
 
   /* Cores de Fundo */
-  --fundo-pagina: #111827;       /* Cinza muito escuro (quase preto) */
-  --fundo-cartao: #1f2937;       /* Cinza escuro para cards */
-  --fundo-entrada: #374151;      /* Cinza médio para inputs */
-  --fundo-hover: #374151;      /* Hover mais claro que o card */
+  --fundo-pagina: #111827;  
+  --fundo-cartao: #1f2937;   
+  --fundo-entrada: #374151;    
+  --fundo-hover: #374151;   
 
   /* Cores de Texto */
-  --texto-primario: #f9fafb;  /* Branco suave */
-  --texto-secundario: #9ca3af;/* Cinza claro */
+  --texto-primario: #f9fafb; 
+  --texto-secundario: #9ca3af;
   
   /* Bordas */
-  --cor-borda: #374151;  /* Bordas escuras */
+  --cor-borda: #374151; 
 
-  /* Sombras (Mais sutis no dark mode) */
+  /* Sombras */
   --sombra-p: 0 2px 4px rgba(0, 0, 0, 0.3);
   --sombra-m: 0 4px 6px rgba(0, 0, 0, 0.4);
   --sombra-g: 0 10px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* ESTRUTURA */
+/* estrututura */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* Transição suave de cores ao trocar o tema */
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s; 
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Transições para tema */
 }
 
 html, body, #root {
@@ -121,7 +122,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: var(--cor-primaria);
-  color: var(--texto-inverso); /* Garante texto branco no botão */
+  color: var(--texto-inverso);
   cursor: pointer;
   transition: background-color 0.25s, transform 0.2s;
 }
@@ -130,7 +131,7 @@ button:hover {
   background-color: var(--cor-primaria-hover);
 }
 
-/* @audit-ok - 5.1 Acessibilidade (Foco visível) */
+/* @audit-ok - 5.1 Acessibilidade */
 button:focus-visible {
   outline: 2px solid var(--cor-primaria);
   outline-offset: 2px;

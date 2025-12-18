@@ -45,7 +45,6 @@
   margin: 0;
 }
 
-/* Ações do Header (User & Nav) */
 .acoes-cabecalho {
   display: flex;
   align-items: center;
@@ -126,7 +125,7 @@
   background: var(--fundo-hover);
 }
 
-/* Barra de Ferramentas (Filtros e Novo) */
+/* Barra de Ferramentas */
 .barra-topo {
   display: flex;
   justify-content: space-between;

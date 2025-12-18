@@ -12,11 +12,9 @@ import {
   FaTrash 
 } from 'react-icons/fa';
 import { gerenciadorRotinas } from '../../manager/gerenciadorRotinas';
-import './FormularioRotina.css'; // Certifique-se de que o arquivo CSS também foi renomeado
+import './FormularioRotina.css'; 
 
 const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
-  // Inicializa estado. Se for edição usa a rotina existente, senão cria modelo novo.
-  // Define recorrência padrão como 'semanal' para garantir compatibilidade com dias da semana.
   const [rotina, setRotina] = useState(
     rotinaEmEdicao || { ...gerenciadorRotinas.criarModeloRotina(), recorrencia: 'semanal' }
   );
@@ -25,11 +23,8 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
   const [erros, setErros] = useState([]);
   const [mostrarPrevisualizacao, setMostrarPrevisualizacao] = useState(false);
 
-  // --- Handlers de Mudança de Input ---
-
   const manipularMudancaRotina = (e) => {
     const { name, value } = e.target;
-    // IMPORTANTE: name deve corresponder às chaves em português (nome, dataInicio, etc)
     setRotina(prev => ({ ...prev, [name]: value }));
     setErros([]);
   };
@@ -38,7 +33,6 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
     const { name, value, type, checked } = e.target;
     
     if (type === 'checkbox') {
-      // Lógica para os dias da semana (ex: name="dia_segunda")
       const valorDia = name.replace('dia_', '');
       setTarefaAtual(prev => ({
         ...prev,
@@ -47,15 +41,11 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
           : prev.diasSemana.filter(d => d !== valorDia),
       }));
     } else {
-      // Lógica para inputs normais (título, horários)
       setTarefaAtual(prev => ({ ...prev, [name]: value }));
     }
   };
 
-  // --- Ações Principais ---
-
   const adicionarTarefa = () => {
-    // Validações da Tarefa individual antes de adicionar na lista
     if (!tarefaAtual.titulo.trim()) {
       setErros(['Digite o título da tarefa']);
       return;
@@ -71,7 +61,6 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
       return;
     }
 
-    // Cria a nova lista de tarefas adicionando a atual
     const novasTarefas = [
       ...rotina.tarefas,
       {
@@ -95,17 +84,16 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
   const manipularEnvio = (e) => {
     e.preventDefault();
     
-    // Validação final da Rotina completa
+    // Validação final
     const errosValidacao = gerenciadorRotinas.validarRotina(rotina);
     if (errosValidacao.length > 0) {
       setErros(errosValidacao);
       return;
     }
 
-    // Chama a função passada pelo pai (PaginaRotina) para salvar
     aoCriarRotina({ ...rotina, recorrencia: 'semanal' });
     
-    // Reseta o formulário se for uma criação nova (opcional, dependendo do fluxo)
+    // Reseta o formulário se for uma criação nova
     if (!rotinaEmEdicao) {
         setRotina(gerenciadorRotinas.criarModeloRotina());
         setTarefaAtual(gerenciadorRotinas.criarModeloTarefa());
@@ -113,24 +101,16 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
     setErros([]);
   };
 
-  // --- Cálculos e Utilitários ---
-
+  // Utilitários
   const duracaoTotal = gerenciadorRotinas.calcularTotalHoras(rotina.tarefas);
-
   const diasDaSemana = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
-  const rotulosDias = {
-    segunda: 'Seg', terça: 'Ter', quarta: 'Qua', quinta: 'Qui',
-    sexta: 'Sex', sábado: 'Sab', domingo: 'Dom',
-  };
-
-  // --- Renderização ---
+  const rotulosDias = {segunda: 'Seg', terça: 'Ter', quarta: 'Qua', quinta: 'Qui', sexta: 'Sex', sábado: 'Sab', domingo: 'Dom', };
 
   return (
     <div className="container-formulario-rotina">
       <div className="cartao-formulario-rotina">
         <h2>{rotinaEmEdicao ? 'Editar Rotina' : 'Nova Rotina'}</h2>
 
-        {/* Exibição de Erros */}
         {erros.length > 0 && (
           <div className="erros-formulario">
             {erros.map((erro, idx) => (
@@ -142,9 +122,7 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
         )}
 
         <form onSubmit={manipularEnvio}>
-          
-          {/* 1. Informações Básicas */}
-          <div className="secao-formulario">
+                    <div className="secao-formulario">
             <h3><FaClipboardList /> Informações da Rotina</h3>
 
             <div className="grupo-formulario">
@@ -197,7 +175,6 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
             </div>
           </div>
 
-          {/* 2. Adicionar Tarefas */}
           <div className="secao-formulario">
             <h3><FaTasks /> Tarefas da Rotina</h3>
 
@@ -261,7 +238,6 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
               </button>
             </div>
 
-            {/* Lista de Tarefas Adicionadas */}
             <div className="lista-tarefas">
               <h4>Tarefas Adicionadas ({rotina.tarefas.length})</h4>
               {rotina.tarefas.length === 0 ? (
@@ -298,7 +274,6 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
             )}
           </div>
 
-          {/* Botões de Ação do Formulário */}
           <div className="acoes-formulario">
             <button
               type="button"
@@ -315,7 +290,6 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
           </div>
         </form>
 
-        {/* Visualização da Timeline */}
         {mostrarPrevisualizacao && rotina.tarefas.length > 0 && (
           <div className="timeline-previsualizacao">
             <h4><FaClock /> Preview da Timeline</h4>
@@ -323,7 +297,6 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
               const tarefasDoDia = rotina.tarefas.filter(t => t.diasSemana.includes(dia));
               if (tarefasDoDia.length === 0) return null;
               
-              // Ordena tarefas por horário
               const tarefasOrdenadas = [...tarefasDoDia].sort((a, b) => a.horaInicio.localeCompare(b.horaInicio));
 
               return (

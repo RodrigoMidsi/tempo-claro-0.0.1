@@ -5,23 +5,22 @@ import { AuthContext } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext'; 
 import { gerenciadorRotinas } from '../../manager/gerenciadorRotinas';
 import { gerenciadorCalendar } from '../../manager/gerenciadorCalendar';
-import { FormularioRotina } from '../../components'; // Ajuste aqui no relatório
+import { FormularioRotina } from '../../components'; 
 import './PaginaRotina.css';
 
 export const PaginaRotina = () => {
   // variáveis contexto, tema e navegação
-
   const { user, accessToken, capturaLogout } = useContext(AuthContext);
-  const { theme, alternarTema } = useTheme(); // Assumindo toggleTheme como nome do metodo no hook useTheme
+  const { theme, alternarTema } = useTheme(); 
   const navegar = useNavigate();
 
   // estados da página de rotina
   const [rotinas, setRotinas] = useState(() => {
-    const carregadas = gerenciadorRotinas.carregarRotinas(); // carrega rotinas do storage
-    return gerenciadorRotinas.ordenarRotinasPorData(carregadas); // ordena rotinas ao carregar a página
+    const carregadas = gerenciadorRotinas.carregarRotinas(); // carrega do storage
+    return gerenciadorRotinas.ordenarRotinasPorData(carregadas); 
   });
 
-  const [mostrarFormulario, setMostrarFormulario] = useState(false); // controla exibição, quando false mostra lista quando true mostra formulário
+  const [mostrarFormulario, setMostrarFormulario] = useState(false); // quando false mostra lista quando true mostra formulário
   const [rotinaEmEdicao, setRotinaEmEdicao] = useState(null); // rotina que está sendo editada
   const [statusSincronizacao, setStatusSincronizacao] = useState(null); // status da sincronização com Google Calendar
 
@@ -118,7 +117,7 @@ return (
                 setRotinaEmEdicao(null);
               }}
             >
-              ← Voltar para Lista
+              Voltar para Lista
             </button>
             <FormularioRotina
               aoCriarRotina={salvarRotina}

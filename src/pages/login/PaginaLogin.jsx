@@ -1,17 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext'; // CORREÇÃO: Nome correto do export
-import { BotaoLoginGoogle } from '../../components/auth/BotaoLoginGoogle'; // CORREÇÃO: Nome correto do componente
-import { CarregadorSpinner } from '../../components/Common/CarregadorSpinner'; // CORREÇÃO: Nome correto do componente
+import { AuthContext } from '../../context/AuthContext'; 
+import { BotaoLoginGoogle } from '../../components/auth/BotaoLoginGoogle'; 
+import { CarregadorSpinner } from '../../components/Common/CarregadorSpinner'; 
 import './PaginaLogin.css';
 
 export const PaginaLogin = () => {
-  // CORREÇÃO: Desestruturação deve bater com o value do Provider (user, carregando)
   const { user, carregando } = useContext(AuthContext); 
   const navegar = useNavigate();
 
   useEffect(() => {
-    // Se não está carregando e tem usuário, manda pra rotina
     if (!carregando && user) {
       navegar('/routine');
     }

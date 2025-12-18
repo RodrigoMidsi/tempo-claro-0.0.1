@@ -32,8 +32,6 @@ export const PaginaPainel = () => {
       let duracaoTotalMinutos = 0;
 
       rotinas.forEach(rotina => {
-        // Lógica simplificada: Se a rotina existe, consideramos ativa para este exemplo
-        // Se houver campo 'ativa' no futuro, adicionar: if (rotina.ativa)
         rotinasAtivas++;
         totalTarefas += rotina.tarefas.length;
 
@@ -67,13 +65,12 @@ export const PaginaPainel = () => {
 
   return (
     <div className="container-painel">
-      {/* HEADER PADRONIZADO (IGUAL AO ROUTINE PAGE) */}
       <header className="cabecalho-painel">
         <div className="conteudo-cabecalho">
           <h1>TEMPO-CLARO</h1>
 
           <div className="acoes-cabecalho">
-            {/* Botão de Tema */}
+
             <button
               className="botao-tema"
               onClick={alternarTema}
@@ -90,7 +87,6 @@ export const PaginaPainel = () => {
               {theme === 'light' ? <FaMoon size={18} /> : <FaSun size={18} />}
             </button>
 
-            {/* Navegação para Rotinas */}
             <button
               className="botao-nav"
               onClick={() => navegar('/routine')}

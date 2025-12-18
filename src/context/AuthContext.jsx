@@ -1,7 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 
-// @audit-info - Contexto exportado (pode gerar aviso de Fast Refresh, mas é funcional)
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 
@@ -11,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [carregando, setCarregando] = useState(true);
   const [clienteToken, setClienteToken] = useState(null);
 
-  // 1. Função de Logout (useCallback para estabilidade)
+  // 1. Função de Logout 
   const capturaLogout = useCallback(() => {
     setUser(null);
     setAccessToken(null);
@@ -25,7 +23,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // 2. Função de Sucesso no Login (CORREÇÃO: Envolvida em useCallback)
   const capturaAuthSuccess = useCallback(async (token, expiraEmSegundos) => {
     try {
       setAccessToken(token);
@@ -57,9 +54,8 @@ export const AuthProvider = ({ children }) => {
       console.error(erro);
       capturaLogout();
     }
-  }, [capturaLogout]); // Depende do logout caso falhe
+  }, [capturaLogout]);
 
-  // 3. Efeito de Inicialização (CORREÇÃO: Dependências ajustadas)
   useEffect(() => {
     const usuarioSalvo = localStorage.getItem('user');
     const tokenSalvo = localStorage.getItem('accessToken');
@@ -106,8 +102,9 @@ export const AuthProvider = ({ children }) => {
       }, 500);
       return () => clearInterval(timer);
     }
-  }, [capturaLogout, capturaAuthSuccess]); // CORREÇÃO: Adicionado capturaAuthSuccess
+  }, [capturaLogout, capturaAuthSuccess]);
 
+  // Função de Login com Google
   const loginComGoogle = () => {
     if (clienteToken) {
       clienteToken.requestAccessToken();

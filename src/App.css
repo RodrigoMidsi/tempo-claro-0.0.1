@@ -1,6 +1,5 @@
-/* APP.CSS - Estilos do App e spinner */
+/* Estilos do App e spinner */
 
-/* @audit-info - Container de Carregamento Global */
 .container-carregamento {
   display: flex;
   justify-content: center;

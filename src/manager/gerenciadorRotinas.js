@@ -1,6 +1,6 @@
 export const gerenciadorRotinas = {
 
-  // Cria estrutura inicial de rotina
+  // Cria objeto vazio de rotina
   criarModeloRotina() {
     return {
       id: Date.now(),
@@ -64,22 +64,21 @@ export const gerenciadorRotinas = {
     return erros;
   },
 
-  /** Calcula duração total das tarefas em horas e minutos */
+  /** Calcula horas total das tarefas */
   calcularTotalHoras(listaTarefas) {
     let totalMinutos = 0;
 
     listaTarefas.forEach(tarefa => {
-      // CORREÇÃO: Arrumei os nomes das variáveis para a matemática bater
       const [horaInicio, minInicio] = tarefa.horaInicio.split(':').map(Number); 
       const [horaFim, minFim] = tarefa.horaFim.split(':').map(Number); 
 
-      const inicioTotalMin = horaInicio * 60 + minInicio; // converte tudo para minutos
+      const inicioTotalMin = horaInicio * 60 + minInicio; 
       const fimTotalMin = horaFim * 60 + minFim; 
       
-      totalMinutos += fimTotalMin - inicioTotalMin; // acumula diferença em minutos
+      totalMinutos += fimTotalMin - inicioTotalMin;
     });
 
-    const horas = Math.floor(totalMinutos / 60); // calcula horas inteiras
+    const horas = Math.floor(totalMinutos / 60); 
     const minutos = totalMinutos % 60;
 
     if (horas === 0) return `${minutos}min`;
@@ -110,22 +109,22 @@ export const gerenciadorRotinas = {
   carregarRotinas() {
     try {
       const dados = JSON.parse(localStorage.getItem('rotinas') || '[]');
-      // Mapeamento para garantir compatibilidade se os nomes no storage antigo forem em inglês
-      // Se for um projeto novo, isso não seria necessário, mas garante segurança na migração
       return dados.map(dado => ({
         id: dado.id,
-        nome: dado.nome || dado.name,
-        dataInicio: dado.dataInicio || dado.startDate,
-        dataFim: dado.dataFim || dado.endDate,
-        cor: dado.cor || dado.color,
-        tarefas: (dado.tarefas || dado.tasks || []).map(t => ({
+        nome: dado.nome,
+        dataInicio: dado.dataInicio,
+        dataFim: dado.dataFim,
+        cor: dado.cor,
+        tarefas: 
+        (dado.tarefas || []).map(t => 
+          ({
             id: t.id,
-            titulo: t.titulo || t.title,
-            horaInicio: t.horaInicio || t.startTime,
-            horaFim: t.horaFim || t.endTime,
-            diasSemana: t.diasSemana || t.daysOfWeek
+            titulo: t.titulo,
+            horaInicio: t.horaInicio,
+            horaFim: t.horaFim,
+            diasSemana: t.diasSemana
         })),
-        criadoEm: dado.criadoEm || dado.createdAt
+        criadoEm: dado.criadoEm
       }));
     } catch (erro) {
       console.error('Erro ao carregar rotinas:', erro);
@@ -147,10 +146,10 @@ export const gerenciadorRotinas = {
 
   /** Ordena rotinas por data de início */
   ordenarRotinasPorData(rotinas) {
-    return [...rotinas].sort((a, b) => { // copia para evitar mutação da original
-      const dataA = new Date(a.dataInicio); // converte para objeto Date para comparação
+    return [...rotinas].sort((a, b) => { 
+      const dataA = new Date(a.dataInicio); 
       const dataB = new Date(b.dataInicio); 
-      return dataA - dataB; // ordena ascendente pela regra do sort que o menor vem primeiro
+      return dataA - dataB; 
     });
   },
 };

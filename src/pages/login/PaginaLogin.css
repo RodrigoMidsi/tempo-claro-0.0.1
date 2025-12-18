@@ -1,4 +1,4 @@
-/* LOGIN PAGE.CSS */
+/* login page */
 
 .container-login {
   display: flex;
@@ -11,8 +11,8 @@
 
 /* Card de Login */
 .cartao-login {
-  background: var(--fundo-cartao);      /* Adapta ao main */
-  color: var(--texto-primario);      /* Adapta ao main */
+  background: var(--fundo-cartao);      
+  color: var(--texto-primario);     
   border-radius: 12px;
   box-shadow: var(--sombra-g);
   width: 100%;
@@ -47,7 +47,7 @@
   font-weight: 500;
 }
 
-/* Área Central */
+/* centro */
 .area-conteudo {
   margin: 30px 0;
   display: flex;
@@ -64,7 +64,7 @@
   line-height: 1.5;
 }
 
-/* Botão Google - Classes genéricas removidas se não usadas em JS específico, mantendo estrutura */
+/* Botão Google */
 .wrapper-botao-google {
   display: flex;
   justify-content: center;

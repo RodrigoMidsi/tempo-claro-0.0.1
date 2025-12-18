@@ -1,12 +1,5 @@
-/**
- * Google Calendar Manager
- * Gerencia a integração com Google Calendar API
- */
-
 export const gerenciadorCalendar = {
-  /**
-   * Inicializa a API do Google Calendar de forma robusta
-   */
+
   async inicializarApi() {
     return new Promise((resolver, rejeitar) => {
       // Função interna para inicializar o cliente quando o gapi estiver pronto
@@ -23,13 +16,7 @@ export const gerenciadorCalendar = {
         });
       };
 
-      // Cenário 1: gapi já existe
-      if (window.gapi) {
-        iniciarClienteGapi();
-        return;
-      }
 
-      // Cenário 2: gapi não existe, precisamos carregar o script dinamicamente
       const script = document.createElement('script');
       script.src = 'https://apis.google.com/js/api.js';
       script.onload = () => iniciarClienteGapi();
@@ -39,17 +26,16 @@ export const gerenciadorCalendar = {
   },
 
 
-  async sincronizarRotina(rotina, tokenAcesso) { // sincroniza rotina com Google Calendar
+  async sincronizarRotina(rotina, tokenAcesso) {
     try {
       if (!window.gapi || !window.gapi.client) {
         await this.inicializarApi();
       }
       // Define o token para a requisição
       window.gapi.client.setToken({ access_token: tokenAcesso });
-      // criar o calendário "TEMPO-CLARO Rotinas"
+      // criar o calendário 
       const idCalendario = await this.criarCalendarioRotinas();
 
-      // 2. Gerar eventos baseados na recorrência
       const eventosParaCriar = [];
       
       for (const tarefa of rotina.tarefas) {
@@ -65,12 +51,12 @@ export const gerenciadorCalendar = {
         }
       }
 
-      // 3. Enviar eventos para o Google
+      // Enviar rotina para o Google
       const resultados = { sucesso: 0, falhas: 0, erros: [] };
 
       for (const evento of eventosParaCriar) {
         try {
-          await window.gapi.client.calendar.events.insert({
+          await window.gapi.client.calendar.events.insert({ // insere no calendario
             calendarId: idCalendario,
             resource: evento,
           });
@@ -78,7 +64,7 @@ export const gerenciadorCalendar = {
         } catch (erro) {
           console.error('Erro ao criar evento:', evento.summary, erro);
           resultados.falhas++;
-          resultados.erros.push(erro.message || 'Erro desconhecido');
+          resultados.erros.push(erro.message);
         }
       }
 
@@ -106,15 +92,15 @@ export const gerenciadorCalendar = {
       const resposta = await window.gapi.client.calendar.calendarList.list();
       const calendarios = resposta.result.items || [];
       
-      const calendarioExistente = calendarios.find( // verifica se já existe o calendário
+      const calendarioExistente = calendarios.find( 
         cal => cal.summary === 'TEMPO-CLARO Rotinas'
       );
 
-      if (calendarioExistente) { // retorna o ID existente
+      if (calendarioExistente) { 
         return calendarioExistente.id;
       }
 
-      const novoCalendario = await window.gapi.client.calendar.calendars.insert({  // cria novo calendário
+      const novoCalendario = await window.gapi.client.calendar.calendars.insert({  
         resource: {
           summary: 'TEMPO-CLARO Rotinas',
           description: 'Rotinas criadas pelo app TempoClaro',
@@ -122,7 +108,7 @@ export const gerenciadorCalendar = {
         },
       });
 
-      return novoCalendario.result.id; // retorna o ID do novo calendário
+      return novoCalendario.result.id; 
     } catch (erro) {
       console.error("Erro detalhado do Google:", erro);
       throw new Error(`Erro no Google Calendar: ${erro.message}`);
@@ -133,9 +119,7 @@ export const gerenciadorCalendar = {
   gerarDatasEventos(dataInicio, dataFim, diasSemana) {
     const datas = [];
     
-    // TRUQUE: Adiciona 'T00:00:00Z' para forçar a data a ser interpretada como UTC (Zero Timezone).
-    // Assim, "2025-12-05" vira exatamente "2025-12-05T00:00:00.000Z"
-    // e não sofre subtração de fuso horário (-3h).
+    // forçar a data a ser UTC 
     const inicio = new Date(`${dataInicio}T00:00:00Z`);
     const fim = new Date(`${dataFim}T00:00:00Z`);
 
@@ -149,16 +133,12 @@ export const gerenciadorCalendar = {
     let atual = new Date(inicio);
 
     while (atual <= fim) {
-      // getUTCDay() garante que pegamos o dia da semana da data UTC, sem converter para local
       const diaDaSemana = atual.getUTCDay();
 
       if (diasSelecionadosNumeros.includes(diaDaSemana)) {
-        // toISOString() sempre retorna em UTC, então "2025-12-05T00:00..." vira "2025-12-05"
         datas.push(atual.toISOString().split('T')[0]);
       }
-      
-      // Avança um dia em UTC
-      atual.setUTCDate(atual.getUTCDate() + 1);
+            atual.setUTCDate(atual.getUTCDate() + 1);
     }
 
     return datas;
@@ -184,19 +164,19 @@ export const gerenciadorCalendar = {
 
   mapearCorParaIdGoogle(corHex) {
     const mapaCores = {
-      '#667eea': '9', // Azul (Blueberry)
-      '#764ba2': '3', // Roxo (Grape)
-      '#10b981': '10', // Verde (Basil)
-      '#f59e0b': '6', // Laranja (Tangerine)
-      '#ef4444': '11', // Vermelho (Tomato)
+      '#667eea': '1',
+      '#764ba2': '2',
+      '#10b981': '3',
+      '#f59e0b': '4',
+      '#ef4444': '5',
     };
-    return mapaCores[corHex] || '9';
+    return mapaCores[corHex] || '3';
   },
 
   construirMensagemResultado(resultado) {
-    if (resultado.falhas === 0) return `✅ ${resultado.sucessos} eventos sincronizados!`;
-    if (resultado.sucessos === 0) return `❌ Falha total. Erro: ${resultado.erros[0]}`;
-    return `⚠️ Parcial: ${resultado.sucessos} ok, ${resultado.falhas} falhas.`;
+    if (resultado.falhas === 0) return `${resultado.sucessos} eventos sincronizados!`;
+    if (resultado.sucessos === 0) return `Erro: ${resultado.erros[0]}`;
+    return `${resultado.sucessos} Erro: ${resultado.falhas}`;
   },
 
   abrirGoogleCalendar(idCalendario) {
