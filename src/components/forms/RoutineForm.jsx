@@ -3,8 +3,8 @@ import { routineManager } from '../../service/routineManager';
 import './RoutineForm.css';
 
 const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
-  const [routine, setRoutine] = useState(routineManager.createEmptyRoutine());
-  const [currentTask, setCurrentTask] = useState(routineManager.createEmptyTask());
+  const [routine, setRoutine] = useState(routineManager.criaRotinaModel());
+  const [currentTask, setCurrentTask] = useState(routineManager.criaTarefaModel());
   const [errors, setErrors] = useState([]);
   const [conflicts, setConflicts] = useState([]);
   const [showPreview, setShowPreview] = useState(false);
@@ -70,11 +70,11 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
       tasks: newTasks,
     }));
 
-    setCurrentTask(routineManager.createEmptyTask());
+    setCurrentTask(routineManager.criaTarefaModel());
     setErrors([]);
     
     // Verificar conflitos
-    const foundConflicts = routineManager.detectConflicts(newTasks);
+    const foundConflicts = routineManager.verificaConflitoDeHora(newTasks);
     setConflicts(foundConflicts);
   };
 
@@ -85,22 +85,22 @@ const RoutineForm = ({ onRoutineCreated, editingRoutine = null }) => {
       tasks: newTasks,
     }));
 
-    const foundConflicts = routineManager.detectConflicts(newTasks);
+    const foundConflicts = routineManager.verificaConflitoDeHora(newTasks);
     setConflicts(foundConflicts);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const validationErrors = routineManager.validateRoutine(routine);
+    const validationErrors = routineManager.validaRotina(routine);
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
       return;
     }
 
     onRoutineCreated(routine);
-    setRoutine(routineManager.createEmptyRoutine());
-    setCurrentTask(routineManager.createEmptyTask());
+    setRoutine(routineManager.criaRotinaModel());
+    setCurrentTask(routineManager.criaTarefaModel());
     setErrors([]);
     setConflicts([]);
   };
