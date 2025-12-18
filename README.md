@@ -1,3 +1,5 @@
+@audit-ok 5.7 boas praticas - Documento descritivo detalhado sobre o projeto (motivações, público-alvo, tecnologias, etc.).
+
 ## **Projeto de desenvolvimento front-end: TEMPO-CLARO**
 
 Aluno: Rodrigo Miranda da Silva
@@ -20,6 +22,8 @@ Focado em um Publico geral que utiliza as ferramentas do google para se orientar
 Desenvolvi este projeto pela minha dificuldade de organização, pensando em uma maneira facil de organizar tarefas e com um "toque" próprio eu desenvolvi o Tempo-Claro.
 
 ## Como Funciona: Passo a Passo
+
+acesse pelo link: www.monzai.com.br e faça login com sua conta google.
 
 ***Fase 1:*** Criação da Rotina
 

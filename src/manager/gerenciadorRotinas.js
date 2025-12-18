@@ -25,6 +25,7 @@ export const gerenciadorRotinas = {
   },
 
   // Valida os dados de uma rotina
+  // @audit-ok 5.4 - JavaScript Interativo
   validarRotina(rotina) {
     const erros = [];
 
@@ -99,6 +100,7 @@ export const gerenciadorRotinas = {
       
       localStorage.setItem('rotinas', JSON.stringify(rotinas)); // salva de volta no storage
       return true;
+      // @audit-ok 5.5 Validações e Feedbacks
     } catch (erro) {
       console.error('Erro ao salvar rotina:', erro);
       return false;
@@ -127,6 +129,7 @@ export const gerenciadorRotinas = {
         criadoEm: dado.criadoEm
       }));
     } catch (erro) {
+      // @audit-ok 5.5 Validações e Feedbacks
       console.error('Erro ao carregar rotinas:', erro);
       return [];
     }
@@ -135,6 +138,7 @@ export const gerenciadorRotinas = {
   deletarRotina(idRotina) {
     try {
       const rotinas = JSON.parse(localStorage.getItem('rotinas') || '[]'); // carrega rotinas ou array vazio
+      // @audit-ok 5.4 - JavaScript Interativo
       const rotinasFiltradas = rotinas.filter(r => r.id !== idRotina); // filtra removendo a rotina com o ID fornecido
       localStorage.setItem('rotinas', JSON.stringify(rotinasFiltradas)); // salva de volta o array filtrado
       return true;

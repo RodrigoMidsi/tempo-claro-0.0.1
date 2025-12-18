@@ -14,6 +14,9 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setAccessToken(null);
     setClienteToken(null);
+
+    // @audit-ok 2.4 - api de navegador
+    // @audit-ok 5.6 - api de navegador
     localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('saveHoraExpToken');
@@ -30,8 +33,8 @@ export const AuthProvider = ({ children }) => {
       const tempoExpiracao = Date.now() + expiraEmSegundos * 1000;
       localStorage.setItem('accessToken', token);
       localStorage.setItem('saveHoraExpToken', tempoExpiracao.toString());
-
-      const resposta = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      // @audit-ok 5.6 - api externa
+      const resposta = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', { // @audit-ok 2.4 - api externa
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -74,6 +77,7 @@ export const AuthProvider = ({ children }) => {
     // Inicializa cliente Google
     const iniciarCliente = () => {
       if (window.google?.accounts?.oauth2) {
+        // @audit-ok 2.4 - api externa
         const cliente = window.google.accounts.oauth2.initTokenClient({
           client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
           scope:

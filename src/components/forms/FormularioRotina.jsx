@@ -46,6 +46,8 @@ const FormularioRotina = ({ aoCriarRotina, rotinaEmEdicao = null }) => {
   };
 
   const adicionarTarefa = () => {
+
+    // @audit-ok - 3.1 validação de formulário
     if (!tarefaAtual.titulo.trim()) {
       setErros(['Digite o título da tarefa']);
       return;

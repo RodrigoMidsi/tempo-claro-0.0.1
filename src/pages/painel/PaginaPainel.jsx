@@ -65,6 +65,8 @@ export const PaginaPainel = () => {
 
   return (
     <div className="container-painel">
+
+      {/* @audit-ok - 2.1 elementos HTML5 semânticos */}
       <header className="cabecalho-painel">
         <div className="conteudo-cabecalho">
           <h1>TEMPO-CLARO</h1>

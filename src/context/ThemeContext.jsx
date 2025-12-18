@@ -6,7 +6,8 @@ export const ThemeProvider = ({ children }) => {
   const [tema, setTema] = useState(localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', tema);
+    // @audit-ok 5.4 - JavaScript Interativo
+    document.documentElement.setAttribute('data-theme', tema); // @audit-ok 2.3 - Interatividade com JavaScript aplicando o tema sem reload de pagina
     localStorage.setItem('theme', tema);
   }, [tema]);
 

@@ -128,7 +128,7 @@
   text-decoration: underline;
 }
 
-/* Responsividade */
+/* @audit-ok - 2.2 responsivo */
 @media (max-width: 640px) {
   .container-login { padding: 16px; }
   .cartao-login { padding: 30px 20px; }

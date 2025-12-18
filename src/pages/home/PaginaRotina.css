@@ -295,7 +295,7 @@
   border-color: var(--cor-primaria);
 }
 
-/* Responsivo */
+/* @audit-ok - 2.2 responsivo */
 @media (max-width: 640px) {
   .cabecalho-rotina .conteudo-cabecalho { flex-direction: column; gap: 15px; }
   .lista-rotinas { grid-template-columns: 1fr; }

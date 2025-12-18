@@ -69,6 +69,8 @@ export const PaginaRotina = () => {
 
 return (
     <div className="container-pagina-rotina">
+
+      {/* @audit-ok - 2.1 elementos HTML5 semânticos */}
       <header className="cabecalho-rotina">
         <div className="conteudo-cabecalho">
           <h1>TEMPO-CLARO</h1>
@@ -107,6 +109,7 @@ return (
         </div>
       </header>
 
+      {/* @audit-ok - 2.1 elementos HTML5 semânticos */}
       <main className="principal-rotina">
         {mostrarFormulario ? (
           <div className="wrapper-secao-formulario">

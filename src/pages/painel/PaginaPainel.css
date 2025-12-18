@@ -176,7 +176,7 @@
   margin: 0;
 }
 
-/* Responsivo */
+/* @audit-ok - 2.2 responsivo */
 @media (max-width: 768px) {
   .conteudo-cabecalho { flex-direction: column; gap: 15px; }
   .acoes-cabecalho { width: 100%; justify-content: space-between; }

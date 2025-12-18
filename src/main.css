@@ -55,8 +55,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* dark mode
- @audit-info - Override de variáveis para Dark Mode */
+/* dark mode */
+
+/* @audit-info 2.3 - Interatividade com JavaScript aplicando o tema sem reload de pagina */
+
 [data-theme="dark"] {
   /* Cores de estilo */
   --cor-primaria: #818cf8;     
@@ -109,6 +111,8 @@ a {
   transition: color 0.2s;
 }
 
+/* @audit-ok - 5.3  CSS Modular e Organizado
+ */
 a:hover {
   color: var(--cor-secundaria);
   text-decoration: underline;
@@ -127,6 +131,7 @@ button {
   transition: background-color 0.25s, transform 0.2s;
 }
 
+/* @audit-ok - 5.3  CSS Modular e Organizado */
 button:hover {
   background-color: var(--cor-primaria-hover);
 }

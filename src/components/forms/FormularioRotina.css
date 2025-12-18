@@ -396,6 +396,8 @@
   box-shadow: var(--sombra-p);
 }
 
+
+/* @audit-ok - 2.2 responsivo */
 @media (max-width: 768px) {
   .linha-formulario {
     flex-direction: column;
