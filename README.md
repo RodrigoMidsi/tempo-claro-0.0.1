@@ -21,118 +21,117 @@ Desenvolvi este projeto pela minha dificuldade de organização, pensando em uma
 
 ## Como Funciona: Passo a Passo
 
-**Fase 1: Criação da Rotina**
+***Fase 1:*** Criação da Rotina
 
-1. Usuário clica em "Nova Rotina"
-   
-2. Preenche informações básicas:
-   - **Nome** (ex: "Rotina Matinal", "Semana de Trabalho")
-   - **Descrição** (opcional)
-   - **Data de Início** (ex: 01/01/2025)
-   - **Data de Fim** (ex: 31/01/2025)
-   - **Tipo de Recorrência**: Diária, Semanal, Mensal ou Uma única vez
-   - **Cor** (para identificação visual)
+Usuário acessa a página de Rotinas e clica em "Nova Rotina"
 
-**Fase 2: Adicionar Tarefas**
+Preenche informações básicas:
 
-**Para cada tarefa, o usuário define:**
-- **Título** (ex: "Exercício", "Tomar café", "Estudar")
-- **Descrição** (detalhes opcionais)
-- **Hora de Início** (ex: 07:00)
-- **Hora de Fim** (ex: 07:30)
-- **Dias da Semana** (se recorrente): marcar quais dias a tarefa se repete
+Nome (ex: "Rotina Matinal")
 
-**Fase 3: Revisão Visual**
+Data de Início
 
-**Antes de salvar, o usuário vê:**
-- **Timeline Visual**: Tarefas em ordem de horário
-- **Preview da Semana**: Distribuição das tarefas
-- **Alertas de Conflitos**: Se houver sobreposição de horários
-- **Duração Total**: Quanto tempo da rotina será preenchido
+Data de Fim
 
+Cor (para identificação visual no sistema e no Google Agenda)
 
-**Fase 4: Salvar Rotina**
+***Fase 2:*** Adicionar Tarefas
 
-Rotina armazenada localmente com estrutura:
+Para cada tarefa dentro da rotina, o usuário define:
 
-É salvo localmente, e é exportada para o Google agenda.
+Título
 
+Hora de Início
 
-**Fase 5: Exportar para Google agenda**
+Hora de Fim
 
-**Fluxo de Sincronização:**
+Dias da Semana: Seleção via checkboxes (Segunda a Domingo) para definir a recorrência semanal daquela tarefa específica dentro do intervalo de datas da rotina
 
-2. **Autenticação** (primeira vez)
-   - Solicitar permissão do Google Calendar (Ele já tem essa permissão do login)
+***Fase 3:*** Revisão Visual e Validação
 
-3. **Processamento**
-   - Para cada tarefa:
-     - Se "uma única vez": criar 1 evento
-     - Se "semanal": criar eventos para cada semana no período
-     - Se "personalizado": seleciona os dias que quer que a tarefa seja implementada para cada dia
+Antes de salvar, o sistema oferece:
 
-4. **Envio dos Eventos**
-   - Exibir mensagem de sucesso/erro
+Visualização de Timeline: Um preview ordenado por horário separando as tarefas por dia da semana
+
+Cálculo de Duração: Exibição do tempo total alocado em tarefas por dia
+
+Validações de Lógica: Impede horários de fim anteriores ao início e exige seleção de dias
+
+***Fase 4:*** Salvar Rotina
+
+A rotina é armazenada no localStorage do navegador através do gerenciadorRotinas
+
+O objeto salvo contém a estrutura completa de dados, incluindo as tarefas aninhadas e configurações de recorrência
+
+***Fase 5:*** Exportar para Google Agenda
+
+Fluxo de Sincronização:
+
+Verificação de Token: O sistema verifica se existe um token de acesso válido obtido no login através do AuthContext
+
+Criação de Calendário: O sistema verifica se existe um calendário chamado "TEMPO-CLARO Rotinas" e, caso não exista, ele é criado automaticamente
+
+Geração de Datas: O gerenciadorCalendar calcula todas as datas específicas entre a data de início e fim que correspondem aos dias da semana selecionados
+
+Envio dos Eventos: Os eventos são inseridos na API do Google Calendar com título, horários e a cor definida na rotina
 
 ## Tecnologias Utilizadas
 
-- **Frontend**: React 19.2.0 + Vite
-- **Roteamento**: React Router DOM 7.0.0
-- **Autenticação**: Google OAuth 2.0
-- **API**: Google Calendar API
-- **Armazenamento Local**: localStorage
-- **Estilos**: CSS3 com design responsivo
+Frontend: React + Vite
 
-## Estrutura do Projeto
+Roteamento: React Router DOM
 
-src/
+Autenticação: Google Identity Services (OAuth 2.0)
 
-├── components/
+API: Google Calendar API (v3)
 
-│   ├── Auth/
+Armazenamento: localStorage (Persistência de dados) e Context API (Estado da aplicação)
 
-│   │   └── GoogleLoginButton.jsx
+Estilos: CSS3 com variáveis globais para temas claro e escuro
 
-│   ├── Kanban/ (será substituído por Rotinas)
+## Arquitetura do Sistema
 
-│   └── ...
+***Páginas*** (src/pages/)
 
-├── context/
+PaginaLogin.jsx: Gerencia a interface de autenticação, permitindo que o usuário entre no sistema via Google OAuth 2.0.
 
-│   └── AuthContext.jsx
+PaginaPainel.jsx: Atua como o Dashboard principal, exibindo estatísticas como o total de rotinas, tarefas diárias e tempo total alocado.
 
-├── manager/
+PaginaRotina.jsx: Página central de gerenciamento onde o usuário visualiza a lista de rotinas, inicia a criação/edição e realiza a exportação para o calendário.
 
-│   ├── loginManager.js
+***Componentes*** (src/components/)
 
-│   ├── painelManager.js
+FormularioRotina.jsx: Componente de formulário completo para criar ou editar rotinas, incluindo a definição de tarefas e seleção de dias da semana.
 
-│   ├── routineManager.js (novo)
+BotaoLoginGoogle.jsx: Componente reutilizável que renderiza o botão personalizado para iniciar o fluxo de login do Google.
 
-│   └── ...
+RotaProtegida.jsx: Atua como um guarda de segurança, verificando se o usuário está autenticado antes de permitir o acesso às páginas internas.
 
-├── pages/
+CarregadorSpinner.jsx: Fornece um feedback visual (spinner) durante processos de carregamento de dados ou autenticação.
 
-│   ├── LoginPage.jsx
+index.js: Arquivo de exportação centralizado que facilita a importação de componentes por outras partes do sistema.
 
-│   ├── DashboardPage.jsx
+***Manager*** (src/manager/)
 
-│   └── RoutinePage.jsx (novo)
+gerenciadorRotinas.js: Responsável por toda a lógica de manipulação de dados locais, incluindo criação de modelos, validação, salvamento e carregamento do localStorage.
 
-├── styles/
+gerenciadorCalendar.js: Gerencia a integração direta com a Google Calendar API, lidando com a inicialização da API e a conversão de rotinas em eventos de agenda.
 
-│   └── ...
+***Context*** (src/context/)
 
-└── ...
+AuthContext.jsx: Gerencia o estado global de autenticação, armazenando os dados do usuário e o token de acesso necessário para as APIs do Google.
 
- ## Arquitetura do Sistema
+ThemeContext.jsx: Controla a preferência de tema (claro ou escuro) do usuário, aplicando as variáveis correspondentes em todo o documento.
 
+***Estrutura Base e Estilos***
 
-Dashboard (Login com Google)
-    ↓
-Página de Rotinas (substitui Kanban)
-    ├─ Criar formulário do zero
-    ├─ Criar Nova Rotina
-    ├─ Editar Rotina
-    └─ Exportar para Google Calendar
+App.jsx: Define a estrutura de roteamento da aplicação e organiza os provedores de contexto globais.
+
+main.jsx: Ponto de entrada do React que renderiza a aplicação e injeta os estilos globais.
+
+main.css: Contém as definições de cores de estilo, variáveis de tema (claro/escuro) e estilos base da interface.
+
+App.css: Define estilos específicos para o container principal da aplicação e animações de carregamento.
+
+PaginaLogin.css, PaginaPainel.css, PaginaRotina.css e FormularioRotina.css: Arquivos de estilo dedicados para a organização visual de cada página e componente específico.
 
