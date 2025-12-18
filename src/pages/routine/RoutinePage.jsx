@@ -163,7 +163,7 @@ return (
                       <div className="routine-title">
                         <h3>{routine.name}</h3>
                         <span className="routine-dates">
-                          Início: {new Date(routine.startDate).toLocaleDateString('pt-BR')}
+                          Início: {new Date(routine.startDate + 'T00:00:00').toLocaleDateString('pt-BR')}
                         </span>
                       </div>
                     </div>
