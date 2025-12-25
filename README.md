@@ -139,3 +139,5 @@ App.css: Define estilos específicos para o container principal da aplicação e
 
 PaginaLogin.css, PaginaPainel.css, PaginaRotina.css e FormularioRotina.css: Arquivos de estilo dedicados para a organização visual de cada página e componente específico.
 
+
+# feliz natal XD 25/12/25
