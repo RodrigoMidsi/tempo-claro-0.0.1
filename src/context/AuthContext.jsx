@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  // token é processado apos sucesso
   const capturaAuthSuccess = useCallback(async (token, expiraEmSegundos) => {
     try {
       setAccessToken(token);
@@ -84,6 +85,7 @@ export const AuthProvider = ({ children }) => {
             'https://www.googleapis.com/auth/userinfo.profile ' +
             'https://www.googleapis.com/auth/userinfo.email ' +
             'https://www.googleapis.com/auth/calendar',
+            // calback pos loginComGoogle 
           callback: (respostaToken) => {
             if (respostaToken?.access_token) {
               capturaAuthSuccess(

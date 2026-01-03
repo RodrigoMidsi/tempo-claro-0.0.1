@@ -89,7 +89,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Transições para tema */
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 
 html, body, #root {
@@ -103,7 +103,7 @@ body {
   min-width: 320px;
 }
 
-/* COMPONENTES GLOBAIS */
+/* globais */
 a {
   font-weight: 500;
   color: var(--cor-primaria);
