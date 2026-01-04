@@ -145,6 +145,12 @@
   font-weight: 600;
 }
 
+.botao-compartilhar:hover {
+  background-color: #25D366; /* WhatsApp */
+  color: white;
+  border-color: #25D366;
+}
+
 .botao-nova-rotina:hover {
   background: var(--cor-primaria-hover);
   transform: translateY(-2px);

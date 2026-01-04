@@ -156,4 +156,29 @@ export const gerenciadorRotinas = {
       return dataA - dataB; 
     });
   },
+
+
+
+  // @audit-info Atualizado para usar as chaves em português (tarefas, titulo, horaInicio)
+
+  gerarTextoCompartilhamento(rotina) {
+    // Correção 1: Usar 'rotina.tarefas' e o método correto 'calcularTotalHoras'
+    const totalHoras = this.calcularTotalHoras(rotina.tarefas);
+    
+    // Correção 2: Usar 'rotina.dataInicio'
+    const dataInicio = new Date(rotina.dataInicio + 'T00:00:00').toLocaleDateString('pt-BR');
+    
+    let texto = `📅 *ROTINA: ${rotina.nome.toUpperCase()}*\n`;
+    texto += `⏳ Duração: ${totalHoras}/dia\n`;
+    texto += `🚀 Início: ${dataInicio}\n\n`;
+    texto += `📋 *TAREFAS:*\n`;
+
+    // Correção 3: Iterar sobre 'tarefas' e usar 'titulo', 'horaInicio', 'horaFim'
+    rotina.tarefas.forEach(tarefa => {
+      texto += `▪️ *${tarefa.titulo}* (${tarefa.horaInicio} - ${tarefa.horaFim})\n`;
+    });
+
+    texto += `\n✨ _Gerado por TempoClaro App_`;
+    return texto;
+  },
 };

@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { FaMoon, FaSun, FaChartBar, FaSignOutAlt, FaPlus, FaEdit, FaCalendarCheck, FaTrash, FaTasks, FaClock, FaInbox } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { FaMoon, FaSun, FaChartBar, FaSignOutAlt, FaPlus, FaEdit, FaCalendarCheck, FaTrash, FaTasks, FaClock, FaInbox, FaWhatsapp } from 'react-icons/fa';import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext'; 
 import { gerenciadorRotinas } from '../../manager/gerenciadorRotinas';
 import { gerenciadorCalendar } from '../../manager/gerenciadorCalendar';
 import { FormularioRotina } from '../../components'; 
+import { UsarCompartilhamento } from '../../hooks/usarCompartilhamento';
 import './PaginaRotina.css';
 
 export const PaginaRotina = () => {
@@ -13,6 +13,7 @@ export const PaginaRotina = () => {
   const { user, accessToken, capturaLogout } = useContext(AuthContext);
   const { theme, alternarTema } = useTheme(); 
   const navegar = useNavigate();
+  const { compartilharRotina } = UsarCompartilhamento();
 
   // estados da página de rotina
   const [rotinas, setRotinas] = useState(() => {
@@ -65,6 +66,10 @@ export const PaginaRotina = () => {
     } else {
       setStatusSincronizacao({ status: 'erro', mensagem: resultado.mensagem || 'Erro na sincronização' });
     }
+  };
+
+  const lidarCompartilhamento = async (rotina) => {
+    await compartilharRotina(rotina);
   };
 
 return (
@@ -183,6 +188,11 @@ return (
                       <button className="botao-acao botao-editar" onClick={() => iniciarEdicao(rotina)}>
                         <FaEdit /> Editar
                       </button>
+
+                      <button className="botao-acao botao-compartilhar" onClick={() => lidarCompartilhamento(rotina)} title="Enviar no WhatsApp">
+                        <FaWhatsapp /> Enviar
+                      </button>
+
                       <button className="botao-acao botao-exportar" onClick={() => exportarParaGoogle(rotina)}>
                         <FaCalendarCheck /> Exportar
                       </button>
